@@ -66,7 +66,7 @@ class dHttp {
 		curl_setopt ($this->ch, CURLOPT_SSL_VERIFYHOST, 2);
 		curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, $this->followlocation);
 		curl_setopt ($this->ch, CURLOPT_ENCODING, $this->encoding);
-        curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
+		curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
 		
 		$this->response = curl_exec($this->ch);
 		curl_close($this->ch);

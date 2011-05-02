@@ -40,7 +40,7 @@ class dHttp {
 	public function __construct() {
 		if (!defined('CURLE_OK')){
             throw new dException(10);
-        }
+		}
 		
 		$this->ch = curl_init();
 	}
@@ -135,7 +135,7 @@ class dHttp {
 	 */
 	public function setTransfer($value) {
         $this->return_transfer = (bool)$value;
-    }
+	}
 
 	/**
      * Sets the time limit of time the CURL can execute

@@ -19,13 +19,15 @@ class dHttp {
 	private $error_msg = null;
 
 	// Flag that defines if cURL should automatically follow the "Location" header or not
-	private $followlocation = true;
+	private $followlocation = false;
 
 	// Flag that defines if cURL should return the body of the response
 	private $return_transfer = true;
 
 	// Show headers or not
 	private $header = false;
+	
+	private $params = null;
 
 	// Page encoding (default utf-8)
     private $encoding = 'utf-8';
@@ -39,8 +41,8 @@ class dHttp {
 	 */
 	public function __construct() {
 		if (!defined('CURLE_OK')){
-            throw new dException(10);
-		}
+			die('Error: Curl is not supported');
+        }
 		
 		$this->ch = curl_init();
 	}
@@ -49,9 +51,7 @@ class dHttp {
 	 * Main method for request
 	 */
 	public function run() {
-		// Set url to post to
-		curl_setopt($this->ch, CURLOPT_URL, $this->URL);
-
+		
 		// If the request use SSL
 		$scheme = parse_url($this->URL, PHP_URL_SCHEME);
 		$scheme = strtolower($scheme);
@@ -62,14 +62,14 @@ class dHttp {
 		}
 		
 		// Basic params
-		curl_setopt ($this->ch, CURLOPT_HEADER, $this->header);
-		curl_setopt ($this->ch, CURLOPT_SSL_VERIFYHOST, 2);
-		curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, $this->followlocation);
-		curl_setopt ($this->ch, CURLOPT_ENCODING, $this->encoding);
-		curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
-		
+		curl_setopt($this->ch, CURLOPT_HEADER, $this->header);
+		curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, $this->followlocation);
+		curl_setopt($this->ch, CURLOPT_ENCODING, $this->encoding);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
+
 		$this->response = curl_exec($this->ch);
 		curl_close($this->ch);
+		
 		return $this->response;
 	}
 	
@@ -80,22 +80,23 @@ class dHttp {
 		else {
 			$this->URL = $url;
 		}
+		// Set url to post to
+		curl_setopt($this->ch, CURLOPT_URL, $this->URL);
 	}
 
 	/**
 	 * Set post params
 	 */
 	public function setParams($data, $method='post') {
-		
+
 		if(strtolower($method) == 'post') {
 			curl_setopt($this->ch, CURLOPT_POST, true);
 			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
 		}
 		else {
 			if(!is_array($data)) {
-				throw new dException(51);
+				die('Error: $data should be array');
 			}
-			
 			$params = array();
 			foreach($data as $key=>$val) {
 				$params[] = $key.'='.$val;
@@ -110,7 +111,7 @@ class dHttp {
 	 */
 	public function setHeaders($headers) {
 		if(!is_array($headers)) {
-			throw new dException(24);
+			die('Error: $headers should be array');
 		}
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
 	}
@@ -135,7 +136,7 @@ class dHttp {
 	 */
 	public function setTransfer($value) {
         $this->return_transfer = (bool)$value;
-	}
+    }
 
 	/**
      * Sets the time limit of time the CURL can execute
@@ -143,7 +144,7 @@ class dHttp {
     public function setTimeout($seconds){
         curl_setopt($this->ch, CURLOPT_TIMEOUT, $seconds);
         if ($this->catchCurlError()){
-            throw new dException(22);
+            die('Error: Time limit of time the CURL have executed');
         }
     }
 
@@ -155,7 +156,7 @@ class dHttp {
             return false;
         }
 
-        throw new dException(80, $curl_errno, curl_error($this->ch));
+        die(curl_error($this->ch));
         return true;
     }
 

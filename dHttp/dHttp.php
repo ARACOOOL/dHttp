@@ -68,6 +68,11 @@ class dHttp {
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
 
 		$this->response = curl_exec($this->ch);
+		
+		if ($this->catchCurlError()){
+			die('Error: Request error, check params');
+		}
+		
 		curl_close($this->ch);
 		
 		return $this->response;

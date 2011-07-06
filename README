@@ -1,4 +1,9 @@
 dHttp is library to work with Curl.
-Use this library very easy!
+Used this library very easy!
 
 See example.php
+
+LICENSE
+
+Phabricator is released under the Apache 2.0 license except as otherwise noted.
+http://www.apache.org/licenses/LICENSE-2.0

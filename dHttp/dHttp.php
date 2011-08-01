@@ -73,8 +73,6 @@ class dHttp {
 			die('Error: Request error, check params');
 		}
 		
-		curl_close($this->ch);
-		
 		return $this->response;
 	}
 	
@@ -164,6 +162,10 @@ class dHttp {
         die(curl_error($this->ch));
         return true;
     }
+	
+	public function __destruct() {
+		curl_close($this->ch);
+	}
 
 }
 

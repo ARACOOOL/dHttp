@@ -1,8 +1,8 @@
 <?php
 /**
-* @version 0.1
-* @author Askar Fuzaylov <afuzaylov@dealerfire.com>
-*/
+ * @version 0.1
+ * @author Askar Fuzaylov <afuzaylov@dealerfire.com>
+ */
 
 class dHttp {
 
@@ -26,11 +26,11 @@ class dHttp {
 
 	// Show headers or not
 	private $header = false;
-	
+
 	private $params = null;
 
 	// Page encoding (default utf-8)
-    private $encoding = 'utf-8';
+	private $encoding = 'utf-8';
 
 	// Response string
 	private $response = null;
@@ -40,47 +40,46 @@ class dHttp {
 	 * @param <string> $method (default POST)
 	 */
 	public function __construct() {
-		if (!defined('CURLE_OK')){
+		if(!defined('CURLE_OK')) {
 			die('Error: Curl is not supported');
-        }
-		
+		}
+
 		$this->ch = curl_init();
 	}
-	
+
 	/**
 	 * Main method for request
 	 */
 	public function run() {
-		
+
 		// If the request use SSL
 		$scheme = parse_url($this->URL, PHP_URL_SCHEME);
 		$scheme = strtolower($scheme);
-		
-		if ($scheme == 'https') {
+
+		if($scheme == 'https') {
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
 		}
-		
+
 		// Basic params
 		curl_setopt($this->ch, CURLOPT_HEADER, $this->header);
 		curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, $this->followlocation);
 		curl_setopt($this->ch, CURLOPT_ENCODING, $this->encoding);
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
+		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
 
 		$this->response = curl_exec($this->ch);
-		
-		if ($this->catchCurlError()){
+
+		if($this->catchCurlError()) {
 			die('Error: Request error, check params');
 		}
-		
+
 		return $this->response;
 	}
-	
+
 	public function setUrl($url) {
 		if(!is_null($this->params)) {
-			$this->URL .= '?'.$this->params;
-		}
-		else {
+			$this->URL .= '?' . $this->params;
+		} else {
 			$this->URL = $url;
 		}
 		// Set url to post to
@@ -90,19 +89,18 @@ class dHttp {
 	/**
 	 * Set post params
 	 */
-	public function setParams($data, $method='post') {
+	public function setParams($data, $method = 'post') {
 
 		if(strtolower($method) == 'post') {
 			curl_setopt($this->ch, CURLOPT_POST, true);
 			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
-		}
-		else {
+		} else {
 			if(!is_array($data)) {
 				die('Error: $data should be array');
 			}
 			$params = array();
-			foreach($data as $key=>$val) {
-				$params[] = $key.'='.$val;
+			foreach($data as $key => $val) {
+				$params[] = $key . '=' . $val;
 			}
 			$params = implode('&', $params);
 			$this->params = $params;
@@ -129,40 +127,40 @@ class dHttp {
 	/**
 	 *  Set cookies
 	 */
-	 private function setCookies($cookie_file) {
+	private function setCookies($cookie_file) {
 		curl_setopt($this->ch, CURLOPT_COOKIEJAR, $cookie_file);
 		curl_setopt($this->ch, CURLOPT_COOKIEFILE, $cookie_file);
-	 }
-	 
+	}
+
 	/**
 	 *  Define whether to return the transfer or not
 	 */
 	public function setTransfer($value) {
-        $this->return_transfer = (bool)$value;
-    }
+		$this->return_transfer = (bool)$value;
+	}
 
 	/**
-     * Sets the time limit of time the CURL can execute
-     */
-    public function setTimeout($seconds){
-        curl_setopt($this->ch, CURLOPT_TIMEOUT, $seconds);
-        if ($this->catchCurlError()){
-            die('Error: Time limit of time the CURL have executed');
-        }
-    }
+	 * Sets the time limit of time the CURL can execute
+	 */
+	public function setTimeout($seconds) {
+		curl_setopt($this->ch, CURLOPT_TIMEOUT, $seconds);
+		if($this->catchCurlError()) {
+			die('Error: Time limit of time the CURL have executed');
+		}
+	}
 
 	/**
-     * Check for an error
-     */
-    private function catchCurlError(){
-        if(!is_resource($this->ch) || !($curl_errno=curl_errno($this->ch))){
-            return false;
-        }
+	 * Check for an error
+	 */
+	private function catchCurlError() {
+		if(!is_resource($this->ch) || !($curl_errno = curl_errno($this->ch))) {
+			return false;
+		}
 
-        die(curl_error($this->ch));
-        return true;
-    }
-	
+		die(curl_error($this->ch));
+		return true;
+	}
+
 	public function __destruct() {
 		curl_close($this->ch);
 	}

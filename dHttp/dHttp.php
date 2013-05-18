@@ -5,166 +5,116 @@
  */
 
 class dHttp {
-
-	// CURL resource handler
-	private $ch = null;
-
-	// Full Url string
-	private $URL = null;
-
-	// On or off debuge
-	private $debug = null;
-
-	// Error message string
-	private $error_msg = null;
-
-	// Flag that defines if cURL should automatically follow the "Location" header or not
-	private $followlocation = false;
-
-	// Flag that defines if cURL should return the body of the response
-	private $return_transfer = true;
-
-	// Show headers or not
-	private $header = false;
-
-	private $params = null;
-
-	// Page encoding (default utf-8)
-	private $encoding = 'utf-8';
-
-	// Response string
-	private $response = null;
+	/**
+	 * @var array
+	 */
+	private $_params = array(
+		CURLOPT_ENCODING => 'utf-8',
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_HEADER => false,
+		CURLOPT_TIMEOUT_MS => 2000,
+		CURLOPT_TIMEOUT => 2,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_MAXREDIRS => 3
+	);
+	/**
+	 * @var null
+	 */
+	private $_response = null;
 
 	/**
-	 * @param <string> $url
-	 * @param <string> $method (default POST)
+	 * Construct
 	 */
-	public function __construct() {
-		if(!defined('CURLE_OK')) {
+	public function __construct($url, array $options = array()) {
+		if(!extension_loaded('curl')) {
 			die('Error: Curl is not supported');
 		}
 
-		$this->ch = curl_init();
+		// Set URL
+		$options[CURLOPT_URL] = $url;
+		// Merge with default options
+		$this->_merge_params($options);
 	}
 
 	/**
-	 * Main method for request
+	 * @param array $fields
+	 * @param array $options
+	 * @return dHttp
+	 * @throws Exception
 	 */
-	public function run() {
+	public function post(array $fields = array(), array $options = array()) {
+		$options = array_merge($options, array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $this->build_params($fields)));
+		$this->_exec($options);
+	}
 
-		// If the request use SSL
-		$scheme = parse_url($this->URL, PHP_URL_SCHEME);
-		$scheme = strtolower($scheme);
+	/**
+	 * @param array $options
+	 */
+	public function get(array $options = array()) {
+		$this->_exec($options);
+	}
 
-		if($scheme == 'https') {
-			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
+	/**
+	 * @param array $options
+	 * @return mixed
+	 * @throws Exception
+	 */
+	private function _exec(array $options = array()) {
+		if(count($options)) {
+			$this->_merge_params($options);
 		}
 
-		// Basic params
-		curl_setopt($this->ch, CURLOPT_HEADER, $this->header);
-		curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, $this->followlocation);
-		curl_setopt($this->ch, CURLOPT_ENCODING, $this->encoding);
-		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, $this->return_transfer);
+		$ch = $this->_init();
 
-		$this->response = curl_exec($this->ch);
+		$this->_response = curl_exec($ch);
 
-		if($this->catchCurlError()) {
-			die('Error: Request error, check params');
+		if($this->_response === false) {
+			throw new Exception(curl_error($ch), curl_errno($ch));
 		}
 
-		return $this->response;
-	}
+		curl_close($ch);
 
-	public function setUrl($url) {
-		if(!is_null($this->params)) {
-			$this->URL .= '?' . $this->params;
-		} else {
-			$this->URL = $url;
-		}
-		// Set url to post to
-		curl_setopt($this->ch, CURLOPT_URL, $this->URL);
+		return $this->_response;
 	}
 
 	/**
-	 * Set post params
+	 * @return resource
 	 */
-	public function setParams($data, $method = 'post') {
+	private function _init() {
+		$ch = curl_init();
+		// The initial parameters
+		$this->_set_curl_options($ch, $this->_params);
 
-		if(strtolower($method) == 'post') {
-			curl_setopt($this->ch, CURLOPT_POST, true);
-			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
-		} else {
-			if(!is_array($data)) {
-				die('Error: $data should be array');
-			}
-			$params = array();
-			foreach($data as $key => $val) {
-				$params[] = $key . '=' . $val;
-			}
-			$params = implode('&', $params);
-			$this->params = $params;
-		}
+		return $ch;
 	}
 
 	/**
-	 * Set headers
+	 * @param $ch
+	 * @param array $options
 	 */
-	public function setHeaders($headers) {
-		if(!is_array($headers)) {
-			die('Error: $headers should be array');
-		}
-		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
+	private function _set_curl_options(&$ch, array $options) {
+		curl_setopt_array($ch, $options);
 	}
 
 	/**
-	 * Show headers or not
+	 * @param array $params
 	 */
-	public function showHeaders($value) {
-		$this->header = (bool)$value;
-	}
-
-	/**
-	 *  Set cookies
-	 */
-	private function setCookies($cookie_file) {
-		curl_setopt($this->ch, CURLOPT_COOKIEJAR, $cookie_file);
-		curl_setopt($this->ch, CURLOPT_COOKIEFILE, $cookie_file);
-	}
-
-	/**
-	 *  Define whether to return the transfer or not
-	 */
-	public function setTransfer($value) {
-		$this->return_transfer = (bool)$value;
-	}
-
-	/**
-	 * Sets the time limit of time the CURL can execute
-	 */
-	public function setTimeout($seconds) {
-		curl_setopt($this->ch, CURLOPT_TIMEOUT, $seconds);
-		if($this->catchCurlError()) {
-			die('Error: Time limit of time the CURL have executed');
+	private function _merge_params(array $params) {
+		foreach($params as $key => $val) {
+			$this->_params[$key] = $val;
 		}
 	}
 
 	/**
-	 * Check for an error
+	 * @param array $params
+	 * @return string
 	 */
-	private function catchCurlError() {
-		if(!is_resource($this->ch) || !($curl_errno = curl_errno($this->ch))) {
-			return false;
+	private function build_params(array $params) {
+		$result = array();
+		foreach($params as $key => $val) {
+			$result[] = $key . '=' . $val;
 		}
 
-		die(curl_error($this->ch));
-		return true;
+		return implode('&', $result);
 	}
-
-	public function __destruct() {
-		curl_close($this->ch);
-	}
-
 }
-
-?>

@@ -4,10 +4,19 @@
  * Example to use library
  */
 include_once('dHttp/dHttp.php');
-$http = new dHttp('http://www.mail.ru');
+$http = new dHttp('http://website.com', array(
+	CURLOPT_RETURNTRANSFER => false
+));
 
 /*
  * Simple request
  */
-//$data = array('test'=>'Simple');
 $http->get();
+
+/*
+ * Simple request
+ */
+$http->post(array(
+	'field1' => 'value1',
+	'field2' => 'value2',
+));

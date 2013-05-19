@@ -1,5 +1,5 @@
 dHttp is library to work with Curl.
-Used this library very easy!
+Easy-to-use library!
 
 ## A Few Examples
 

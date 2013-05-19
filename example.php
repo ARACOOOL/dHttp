@@ -1,6 +1,6 @@
 <?php
 /**
- * dHttp is is library to work with Curl	
+ * dHttp is library to work with Curl
  * Example to use library
  */
 include_once('dHttp/dHttp.php');

@@ -175,7 +175,7 @@ class dHttp {
 
 	/**
 	 * Reset options
-	 * 
+	 *
 	 * @return dHttp
 	 */
 	public function reset() {

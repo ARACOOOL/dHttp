@@ -1,13 +1,15 @@
 <?php
 /**
+ * @namespace
+ */
+namespace dHttp;
+
+/**
  * dHttp - http client based curl
  *
  * @version 0.2.0
  * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
-
-namespace dHttp;
-
 class dResponse {
 	/**
 	 * @var string

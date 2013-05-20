@@ -16,7 +16,7 @@ class dResponse {
 	/**
 	 * @var string
 	 */
-	private $_headers = null;
+	private $_header = null;
 	/**
 	 * @var string
 	 */
@@ -31,8 +31,10 @@ class dResponse {
 	private $_info = array();
 
 	/**
-	 * @param $response
-	 * @param $info
+	 * Constructor
+	 *
+	 * @param string $response
+	 * @param array $info
 	 */
 	public function __construct($response, array $info) {
 		$this->_raw = $response;
@@ -42,13 +44,17 @@ class dResponse {
 	}
 
 	/**
-	 * @param $errors
+	 * Set errors
+	 *
+	 * @param array $errors
 	 */
 	public function set_error($errors) {
 		$this->_errors = $errors;
 	}
 
 	/**
+	 * Return raw response
+	 *
 	 * @return null|string
 	 */
 	public function get_raw() {
@@ -56,13 +62,17 @@ class dResponse {
 	}
 
 	/**
+	 * Return response headers
+	 *
 	 * @return null|string
 	 */
-	public function get_headers() {
-		return $this->_headers;
+	public function get_header() {
+		return $this->_header;
 	}
 
 	/**
+	 * Return response body
+	 *
 	 * @return null|string
 	 */
 	public function get_body() {
@@ -70,6 +80,8 @@ class dResponse {
 	}
 
 	/**
+	 * Return request errors
+	 *
 	 * @return null|string
 	 */
 	public function get_errors() {
@@ -77,7 +89,9 @@ class dResponse {
 	}
 
 	/**
-	 * @param $name
+	 * Get access for properties
+	 *
+	 * @param string $name
 	 * @return mixed
 	 */
 	public function __get($name) {

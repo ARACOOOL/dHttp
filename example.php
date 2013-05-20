@@ -34,7 +34,7 @@ $resp = $http->post(array(
 	));
 
 // Get response headers
-var_dump($resp->headers);
+var_dump($resp->header);
 
 /**
  * Another way of setting.

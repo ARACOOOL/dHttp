@@ -1,5 +1,5 @@
 {
-    "name": "ARACOOOL/dHttp",
+    "name": "aracoool/dhttp",
     "version" : "0.2.0",
     "description": "Simple and lightweight HTTP client based cURL",
     "keywords": ["http client", "curl"],

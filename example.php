@@ -3,7 +3,6 @@
  * dHttp is library to work with Curl
  * Example to use library
  */
-//use dHttp;
 
 include_once('dHttp/dHttp.php');
 include_once('dHttp/dResponse.php');

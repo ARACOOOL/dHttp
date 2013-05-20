@@ -28,6 +28,8 @@ class dHttp {
 
 	/**
 	 * Construct
+	 * @param string $url
+	 * @param array $options
 	 */
 	public function __construct($url = null, array $options = array()) {
 		if(!extension_loaded('curl')) {
@@ -160,6 +162,7 @@ class dHttp {
 	 *
 	 * @param resource $ch
 	 * @param array $options
+	 * @return void
 	 */
 	private function _set_curl_options(&$ch, array $options) {
 		curl_setopt_array($ch, $options);

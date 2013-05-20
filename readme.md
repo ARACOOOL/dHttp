@@ -1,6 +1,8 @@
 dHttp is a lightweight library to work with Curl.
 Easy-to-use library!
 
+[![Build Status](https://travis-ci.org/ARACOOOL/dHttp.png?branch=master)](https://travis-ci.org/ARACOOOL/dHttp)
+
 ## A Few Examples
 
 ### GET request:

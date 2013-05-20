@@ -4,7 +4,7 @@
     "description": "Simple and lightweight HTTP client based cURL",
     "keywords": ["http client", "curl"],
     "type": "library",
-    "license": "MIT",
+    "license": "Apache 2",
     "authors": [
         {
             "name": "Askar Fuzaylov",

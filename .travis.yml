@@ -6,4 +6,4 @@ php:
   - 5.4
 
 script:
-  - phpunit --colors --coverage-text
+  - phpunit --colors tests/dHttpTest

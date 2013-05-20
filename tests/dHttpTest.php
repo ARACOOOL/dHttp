@@ -3,8 +3,8 @@
  * @author: User
  * @date: 20.05.13
  */
-include_once('../dHttp/dHttp.php');
-include_once('../dHttp/dResponse.php');
+include_once(__DIR__ . '/../dHttp/dHttp.php');
+include_once(__DIR__ . '/../dHttp/dResponse.php');
 
 class dHttpTest extends PHPUnit_Framework_TestCase {
 	/**

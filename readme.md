@@ -1,4 +1,4 @@
-dHttp is library to work with Curl.
+dHttp is a lightweight library to work with Curl.
 Easy-to-use library!
 
 ## A Few Examples

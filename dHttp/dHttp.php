@@ -1,8 +1,12 @@
 <?php
 /**
- * @version 0.1
+ * dHttp - http client based curl
+ *
+ * @version 0.2
  * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
+
+namespace dHttp;
 
 class dHttp {
 	/**
@@ -11,7 +15,7 @@ class dHttp {
 	private $_default = array(
 		CURLOPT_ENCODING => 'utf-8',
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_HEADER => false,
+		CURLOPT_HEADER => true,
 		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_USERAGENT => 'dHttp',
 		CURLOPT_TIMEOUT => 2,
@@ -97,38 +101,41 @@ class dHttp {
 	 *
 	 * @param array $fields
 	 * @param array $options
-	 * @return mixed
+	 * @return dResponse
 	 * @throws Exception
 	 */
 	public function post(array $fields = array(), array $options = array()) {
 		$this->add_options($options);
 		$this->add_options(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $this->build_fields($fields)));
-		return $this->_exec($options);
+		return $this->_exec();
 	}
 
 	/**
 	 * Send get request
 	 *
 	 * @param array $options
-	 * @return mixed
+	 * @return dResponse
 	 */
 	public function get(array $options = array()) {
 		$this->add_options($options);
-		return $this->_exec($options);
+		return $this->_exec();
 	}
 
 	/**
 	 * Execute the query
 	 *
-	 * @return mixed
+	 * @return dResponse
 	 * @throws Exception
 	 */
 	private function _exec() {
 		$ch = $this->_init();
 
-		$response = curl_exec($ch);
-		if($response === false) {
-			throw new Exception(curl_error($ch), curl_errno($ch));
+		$result = curl_exec($ch);
+		// Collect response data
+		$response = new dResponse($result, curl_getinfo($ch));
+
+		if($result === false) {
+			$response->set_error(array(curl_errno($ch) => curl_error($ch)));
 		}
 		curl_close($ch);
 

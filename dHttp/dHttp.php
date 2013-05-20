@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.1
- * @author Askar Fuzaylov <afuzaylov@dealerfire.com>
+ * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
 
 class dHttp {
@@ -75,6 +75,24 @@ class dHttp {
 	}
 
 	/**
+	 * Add options
+	 *
+	 * @param array $params
+	 * @return dHttp
+	 */
+	public function add_options(array $params) {
+		if(!count($this->_options)) {
+			$this->_options = $this->_default;
+		}
+
+		foreach($params as $key => $val) {
+			$this->_options[$key] = $val;
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Send post request
 	 *
 	 * @param array $fields
@@ -138,24 +156,6 @@ class dHttp {
 	 */
 	private function _set_curl_options(&$ch, array $options) {
 		curl_setopt_array($ch, $options);
-	}
-
-	/**
-	 * Add options
-	 *
-	 * @param array $params
-	 * @return dHttp
-	 */
-	public function add_options(array $params) {
-		if(!count($this->_options)) {
-			$this->_options = $this->_default;
-		}
-
-		foreach($params as $key => $val) {
-			$this->_options[$key] = $val;
-		}
-
-		return $this;
 	}
 
 	/**

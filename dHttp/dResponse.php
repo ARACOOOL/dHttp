@@ -42,7 +42,12 @@ class dResponse {
 		$this->_raw = $response;
 		$this->_info = $info;
 		// Separate body a from a header
-		list($this->_headers, $this->_body) = explode("\r\n\r\n", $response, 2);
+		if(preg_match("/\r\n\r\n/iu", $response)) {
+			list($this->_headers, $this->_body) = explode("\r\n\r\n", $response, 2);
+		}
+		else {
+			$this->_body = $response;
+		}
 	}
 
 	/**

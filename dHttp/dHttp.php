@@ -125,6 +125,38 @@ class dHttp {
 		return $this->_exec();
 	}
 
+	public function multi(array $handlers) {
+		//create the multiple cURL handle
+		$mc = curl_multi_init();
+		$resources = array();
+
+		foreach($handlers as $item) {
+			if(!$item instanceof dHttp) {
+				throw new \Exception('Handler should be object instance of dHttp');
+			}
+			$res = $item->_init();
+			curl_multi_add_handle($mc, $res);
+			$resources[] = $res;
+		}
+
+		$running = null;
+		do {
+			usleep(100);
+			curl_multi_exec($mc, $running);
+		} while($running > 0);
+
+		$result = array();
+		foreach($resources as $item) {
+			$resp = new dResponse(curl_multi_getcontent($item), curl_getinfo($item));
+			$resp->set_error(array(curl_errno($item) => curl_error($item)));
+			$result[] = $resp;
+			curl_multi_remove_handle($mc, $item);
+		}
+
+		curl_multi_close($mc);
+		return $result;
+	}
+
 	/**
 	 * Execute the query
 	 *
@@ -151,11 +183,10 @@ class dHttp {
 	 *
 	 * @return resource
 	 */
-	private function _init() {
+	public function _init() {
 		$ch = curl_init();
 		// The initial parameters
 		$this->_set_curl_options($ch, $this->_options);
-
 		return $ch;
 	}
 
@@ -193,5 +224,16 @@ class dHttp {
 	public function reset() {
 		$this->_options = array();
 		return $this;
+	}
+
+	/**
+	 * Return curl information
+	 *
+	 * @param string $type
+	 * @return mixed
+	 */
+	public static function v($type = 'version') {
+		$info = curl_version();
+		return isset($info[$type]) ? $info[$type] : null;
 	}
 }

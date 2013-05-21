@@ -7,7 +7,7 @@
 include_once('dHttp/dHttp.php');
 include_once('dHttp/dResponse.php');
 
-$http = new dHttp\dHttp('http://jangoz.net', array(
+$http = new dHttp\dHttp('http://website.com', array(
 	CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
 	CURLOPT_TIMEOUT => 5,
 	CURLOPT_HEADER => true
@@ -46,3 +46,26 @@ $http->add_options(array(CURLOPT_RETURNTRANSFER => false))
 	->set_cookie('/tmp/cookies.txt')
 	->set_url('http://website.com')
 	->get();
+
+/**
+ * Use multi curl
+ */
+
+$multi = new dHttp\dHttp();
+$response_array = $multi->multi(array(
+	new dHttp\dHttp('http://website1.com'),
+
+	new dHttp\dHttp('http://website2.com', array(
+		CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
+		CURLOPT_TIMEOUT => 5,
+	))
+));
+
+foreach($response_array as $item) {
+	var_dump($item->http_code);
+}
+
+/**
+ * Get cURL version
+ */
+\dHttp\dHttp::v();

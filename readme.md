@@ -39,6 +39,33 @@ $http->add_options(array(CURLOPT_RETURNTRANSFER => false))
 	));
 ```
 
+### Multithreaded query:
+
+```php
+include_once('dHttp/dHttp.php');
+include_once('dHttp/dResponse.php');
+
+$multi = new dHttp\dHttp();
+$response_array = $multi->multi(array(
+	new dHttp\dHttp('http://website1.com'),
+
+	new dHttp\dHttp('http://website2.com', array(
+		CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
+		CURLOPT_TIMEOUT => 5,
+	))
+));
+
+foreach($response_array as $item) {
+	var_dump($item->http_code);
+}
+```
+
+### Get cURL version:
+
+```php
+\dHttp\dHttp::v();
+```
+
 ## LICENSE
 
 Phabricator is released under the Apache 2.0 license except as otherwise noted.

@@ -7,7 +7,7 @@ namespace dHttp;
 /**
  * dHttp - http client based curl
  *
- * @version 0.2.0
+ * @version 0.3.0
  * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
 class dHttp {
@@ -127,7 +127,7 @@ class dHttp {
 
 	/**
 	 * Send multithreaded queries
-	 * 
+	 *
 	 * @param array $handlers
 	 * @return array
 	 * @throws \Exception

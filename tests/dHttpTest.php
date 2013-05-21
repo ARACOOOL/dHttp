@@ -1,6 +1,6 @@
 <?php
 /**
- * @author: User
+ * @author: Askar
  * @date: 20.05.13
  */
 include_once(__DIR__ . '/../dHttp/dHttp.php');

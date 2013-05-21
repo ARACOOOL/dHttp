@@ -125,6 +125,13 @@ class dHttp {
 		return $this->_exec();
 	}
 
+	/**
+	 * Send multithreaded queries
+	 * 
+	 * @param array $handlers
+	 * @return array
+	 * @throws \Exception
+	 */
 	public function multi(array $handlers) {
 		//create the multiple cURL handle
 		$mc = curl_multi_init();

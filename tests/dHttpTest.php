@@ -35,11 +35,11 @@ class dHttpTest extends PHPUnit_Framework_TestCase {
 	public function testMultiRequest() {
 		$multi = new dHttp\dHttp();
 		$response_array = $multi->multi(array(
-			new dHttp\dHttp('http://habrahabr.ru'),
+			new dHttp\dHttp('http://php.net'),
 
-			new dHttp\dHttp('http://4pda.ru', array(
+			new dHttp\dHttp('http://www.python.org/', array(
 				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
-				CURLOPT_TIMEOUT => 5,
+				CURLOPT_TIMEOUT => 10,
 			))
 		));
 

@@ -110,7 +110,7 @@ class dHttp {
 	 */
 	public function post(array $fields = array(), array $options = array()) {
 		$this->add_options($options);
-		$this->add_options(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $this->build_fields($fields)));
+		$this->add_options(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => http_build_query($fields)));
 		return $this->_exec();
 	}
 
@@ -206,21 +206,6 @@ class dHttp {
 	 */
 	private function _set_curl_options(&$ch, array $options) {
 		curl_setopt_array($ch, $options);
-	}
-
-	/**
-	 * Build request fields
-	 *
-	 * @param array $params
-	 * @return string
-	 */
-	private function build_fields(array $params) {
-		$result = array();
-		foreach($params as $key => $val) {
-			$result[] = $key . '=' . $val;
-		}
-
-		return implode('&', $result);
 	}
 
 	/**

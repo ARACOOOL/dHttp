@@ -3,6 +3,14 @@ Easy-to-use library!
 
 [![Build Status](https://travis-ci.org/ARACOOOL/dHttp.png?branch=master)](https://travis-ci.org/ARACOOOL/dHttp)
 
+## Install
+
+      {
+          "require": {
+              "aracoool/dhttp": "dev-master"
+          }
+      }
+
 ## A Few Examples
 
 ### GET request:

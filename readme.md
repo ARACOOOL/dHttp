@@ -5,11 +5,11 @@ Easy-to-use library!
 
 ## Install
 
-      {
-          "require": {
-              "aracoool/dhttp": "dev-master"
-          }
-      }
+    {
+        "require": {
+            "aracoool/dhttp": "dev-master"
+        }
+    }
 
 ## A Few Examples
 

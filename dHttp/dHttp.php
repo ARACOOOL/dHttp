@@ -35,7 +35,7 @@ class dHttp {
 	 */
 	public function __construct($url = null, array $options = array()) {
 		if(!extension_loaded('curl')) {
-			thorow new Exception('Error: Curl is not supported');
+			throw new Exception('Error: Curl is not supported');
 		}
 
 		// Merge with default options

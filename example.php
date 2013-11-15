@@ -61,7 +61,7 @@ $response_array = $multi->multi(array(
 	))
 ));
 
-foreach($response_array as $item) {
+foreach ($response_array as $item) {
 	var_dump($item->http_code);
 }
 

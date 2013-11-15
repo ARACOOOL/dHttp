@@ -36,7 +36,7 @@ class dHttp
 	 */
 	public function __construct($url = null, array $options = array())
 	{
-		if(!extension_loaded('curl')) {
+		if (!extension_loaded('curl')) {
 			throw new \Exception('The PHP cURL extension must be installed to use dHttp');
 		}
 
@@ -54,7 +54,7 @@ class dHttp
 	 */
 	public function setUrl($url)
 	{
-		if(!is_null($url)) {
+		if (!is_null($url)) {
 			$this->_options[CURLOPT_URL] = $url;
 		}
 
@@ -94,11 +94,11 @@ class dHttp
 	 */
 	public function addOptions(array $params)
 	{
-		if(!count($this->_options)) {
+		if (!count($this->_options)) {
 			$this->_options = $this->_default;
 		}
 
-		foreach($params as $key => $val) {
+		foreach ($params as $key => $val) {
 			$this->_options[$key] = $val;
 		}
 
@@ -144,8 +144,8 @@ class dHttp
 		$mc = curl_multi_init();
 		$resources = array();
 
-		foreach($handlers as $item) {
-			if(!$item instanceof dHttp) {
+		foreach ($handlers as $item) {
+			if (!$item instanceof dHttp) {
 				throw new \Exception('Handler should be object instance of dHttp');
 			}
 			$res = $item->_init();
@@ -157,10 +157,10 @@ class dHttp
 		do {
 			usleep(100);
 			curl_multi_exec($mc, $running);
-		} while($running > 0);
+		} while ($running > 0);
 
 		$result = array();
-		foreach($resources as $item) {
+		foreach ($resources as $item) {
 			$resp = new dResponse(curl_multi_getcontent($item), curl_getinfo($item));
 			$resp->setError(array(curl_errno($item) => curl_error($item)));
 			$result[] = $resp;
@@ -184,7 +184,7 @@ class dHttp
 		// Collect response data
 		$response = new dResponse($result, curl_getinfo($ch));
 
-		if($result === false) {
+		if ($result === false) {
 			$response->setError(array(curl_errno($ch) => curl_error($ch)));
 		}
 		curl_close($ch);

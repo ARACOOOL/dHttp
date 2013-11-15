@@ -42,7 +42,7 @@ class dResponse
 		$this->_raw = $response;
 		$this->_info = $info;
 		// Separate body a from a header
-		if(preg_match("/\r\n\r\n/iu", $response)) {
+		if (preg_match("/\r\n\r\n/iu", $response)) {
 			list($this->_headers, $this->_body) = explode("\r\n\r\n", $response, 2);
 		}
 		else {
@@ -108,11 +108,11 @@ class dResponse
 	 */
 	public function __get($name)
 	{
-		if(isset($this->_info[$name])) {
+		if (isset($this->_info[$name])) {
 			return $this->_info[$name];
 		}
 
-		if(method_exists($this, 'get_' . $name)) {
+		if (method_exists($this, 'get_' . $name)) {
 			return $this->{'get_' . $name}();
 		}
 

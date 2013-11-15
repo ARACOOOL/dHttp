@@ -5,7 +5,6 @@ namespace dHttp;
 /**
  * dHttp - http client based curl
  *
- * @version 0.3.0
  * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
 class dHttp

@@ -30,8 +30,10 @@ class dHttp {
 
 	/**
 	 * Construct
-	 * @param string $url
+	 *
+	 * @param null $url
 	 * @param array $options
+	 * @throws \Exception
 	 */
 	public function __construct($url = null, array $options = array()) {
 		if(!extension_loaded('curl')) {
@@ -105,7 +107,6 @@ class dHttp {
 	 * @param array $fields
 	 * @param array $options
 	 * @return dResponse
-	 * @throws Exception
 	 */
 	public function post(array $fields = array(), array $options = array()) {
 		$this->add_options($options);
@@ -167,7 +168,6 @@ class dHttp {
 	 * Execute the query
 	 *
 	 * @return dResponse
-	 * @throws Exception
 	 */
 	private function _exec() {
 		$ch = $this->_init();

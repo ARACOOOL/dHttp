@@ -6,11 +6,13 @@
 include_once(__DIR__ . '/../dHttp/dHttp.php');
 include_once(__DIR__ . '/../dHttp/dResponse.php');
 
-class dHttpTest extends PHPUnit_Framework_TestCase {
+class dHttpTest extends PHPUnit_Framework_TestCase
+{
 	/**
 	 *
 	 */
-	public function testGetRequest() {
+	public function testGetRequest()
+	{
 		$http = new dHttp\dHttp('http://habrahabr.ru');
 		$resp = $http->get();
 
@@ -21,7 +23,8 @@ class dHttpTest extends PHPUnit_Framework_TestCase {
 	/**
 	 *
 	 */
-	public function testPostRequest() {
+	public function testPostRequest()
+	{
 		$http = new dHttp\dHttp('http://habrahabr.ru');
 		$resp = $http->post();
 
@@ -32,7 +35,8 @@ class dHttpTest extends PHPUnit_Framework_TestCase {
 	/**
 	 *
 	 */
-	public function testMultiRequest() {
+	public function testMultiRequest()
+	{
 		$multi = new dHttp\dHttp();
 		$response_array = $multi->multi(array(
 			new dHttp\dHttp('http://php.net'),

@@ -1,7 +1,5 @@
 <?php
-/**
- * @namespace
- */
+
 namespace dHttp;
 
 /**
@@ -10,7 +8,8 @@ namespace dHttp;
  * @version 0.3.0
  * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
-class dHttp {
+class dHttp
+{
 	/**
 	 * @var array
 	 */
@@ -35,15 +34,16 @@ class dHttp {
 	 * @param array $options
 	 * @throws \Exception
 	 */
-	public function __construct($url = null, array $options = array()) {
+	public function __construct($url = null, array $options = array())
+	{
 		if(!extension_loaded('curl')) {
 			throw new \Exception('The PHP cURL extension must be installed to use dHttp');
 		}
 
 		// Merge with default options
-		$this->add_options($options);
+		$this->addOptions($options);
 		// Set URL
-		$this->set_url($url);
+		$this->setUrl($url);
 	}
 
 	/**
@@ -52,7 +52,8 @@ class dHttp {
 	 * @param string $url
 	 * @return dHttp
 	 */
-	public function set_url($url) {
+	public function setUrl($url)
+	{
 		if(!is_null($url)) {
 			$this->_options[CURLOPT_URL] = $url;
 		}
@@ -66,7 +67,8 @@ class dHttp {
 	 * @param string $agent
 	 * @return dHttp
 	 */
-	public function set_user_agent($agent) {
+	public function setUserAgent($agent)
+	{
 		$this->_options[CURLOPT_USERAGENT] = $agent;
 		return $this;
 	}
@@ -77,7 +79,8 @@ class dHttp {
 	 * @param string $cookie
 	 * @return dHttp
 	 */
-	public function set_cookie($cookie) {
+	public function setCookie($cookie)
+	{
 		$this->_options[CURLOPT_COOKIEFILE] = $cookie;
 		$this->_options[CURLOPT_COOKIEJAR] = $cookie;
 		return $this;
@@ -89,7 +92,8 @@ class dHttp {
 	 * @param array $params
 	 * @return dHttp
 	 */
-	public function add_options(array $params) {
+	public function addOptions(array $params)
+	{
 		if(!count($this->_options)) {
 			$this->_options = $this->_default;
 		}
@@ -108,9 +112,10 @@ class dHttp {
 	 * @param array $options
 	 * @return dResponse
 	 */
-	public function post(array $fields = array(), array $options = array()) {
-		$this->add_options($options);
-		$this->add_options(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => http_build_query($fields)));
+	public function post(array $fields = array(), array $options = array())
+	{
+		$this->addOptions($options);
+		$this->addOptions(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => http_build_query($fields)));
 		return $this->_exec();
 	}
 
@@ -120,8 +125,9 @@ class dHttp {
 	 * @param array $options
 	 * @return dResponse
 	 */
-	public function get(array $options = array()) {
-		$this->add_options($options);
+	public function get(array $options = array())
+	{
+		$this->addOptions($options);
 		return $this->_exec();
 	}
 
@@ -132,7 +138,8 @@ class dHttp {
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function multi(array $handlers) {
+	public function multi(array $handlers)
+	{
 		//create the multiple cURL handle
 		$mc = curl_multi_init();
 		$resources = array();
@@ -155,7 +162,7 @@ class dHttp {
 		$result = array();
 		foreach($resources as $item) {
 			$resp = new dResponse(curl_multi_getcontent($item), curl_getinfo($item));
-			$resp->set_error(array(curl_errno($item) => curl_error($item)));
+			$resp->setError(array(curl_errno($item) => curl_error($item)));
 			$result[] = $resp;
 			curl_multi_remove_handle($mc, $item);
 		}
@@ -169,7 +176,8 @@ class dHttp {
 	 *
 	 * @return dResponse
 	 */
-	private function _exec() {
+	private function _exec()
+	{
 		$ch = $this->_init();
 
 		$result = curl_exec($ch);
@@ -177,7 +185,7 @@ class dHttp {
 		$response = new dResponse($result, curl_getinfo($ch));
 
 		if($result === false) {
-			$response->set_error(array(curl_errno($ch) => curl_error($ch)));
+			$response->setError(array(curl_errno($ch) => curl_error($ch)));
 		}
 		curl_close($ch);
 
@@ -189,10 +197,11 @@ class dHttp {
 	 *
 	 * @return resource
 	 */
-	public function _init() {
+	public function _init()
+	{
 		$ch = curl_init();
 		// The initial parameters
-		$this->_set_curl_options($ch, $this->_options);
+		$this->_setCurlOptions($ch, $this->_options);
 		return $ch;
 	}
 
@@ -203,7 +212,8 @@ class dHttp {
 	 * @param array $options
 	 * @return void
 	 */
-	private function _set_curl_options(&$ch, array $options) {
+	private function _setCurlOptions(&$ch, array $options)
+	{
 		curl_setopt_array($ch, $options);
 	}
 
@@ -212,7 +222,8 @@ class dHttp {
 	 *
 	 * @return dHttp
 	 */
-	public function reset() {
+	public function reset()
+	{
 		$this->_options = array();
 		return $this;
 	}
@@ -223,8 +234,10 @@ class dHttp {
 	 * @param string $type
 	 * @return mixed
 	 */
-	public static function v($type = 'version') {
+	public static function v($type = 'version')
+	{
 		$info = curl_version();
 		return isset($info[$type]) ? $info[$type] : null;
 	}
 }
+?>

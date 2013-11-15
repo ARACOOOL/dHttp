@@ -1,7 +1,5 @@
 <?php
-/**
- * @namespace
- */
+
 namespace dHttp;
 
 /**
@@ -10,7 +8,8 @@ namespace dHttp;
  * @version 0.3.0
  * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
-class dResponse {
+class dResponse
+{
 	/**
 	 * @var string
 	 */
@@ -38,7 +37,8 @@ class dResponse {
 	 * @param string $response
 	 * @param array $info
 	 */
-	public function __construct($response, array $info) {
+	public function __construct($response, array $info)
+	{
 		$this->_raw = $response;
 		$this->_info = $info;
 		// Separate body a from a header
@@ -51,20 +51,12 @@ class dResponse {
 	}
 
 	/**
-	 * Set errors
-	 *
-	 * @param array $errors
-	 */
-	public function set_error($errors) {
-		$this->_errors = $errors;
-	}
-
-	/**
 	 * Return raw response
 	 *
 	 * @return null|string
 	 */
-	public function get_raw() {
+	public function getRaw()
+	{
 		return $this->_raw;
 	}
 
@@ -73,7 +65,8 @@ class dResponse {
 	 *
 	 * @return null|string
 	 */
-	public function get_header() {
+	public function getHeader()
+	{
 		return $this->_header;
 	}
 
@@ -82,8 +75,19 @@ class dResponse {
 	 *
 	 * @return null|string
 	 */
-	public function get_body() {
+	public function getBody()
+	{
 		return $this->_body;
+	}
+
+	/**
+	 * Set errors
+	 *
+	 * @param array $errors
+	 */
+	public function setError($errors)
+	{
+		$this->_errors = $errors;
 	}
 
 	/**
@@ -91,7 +95,8 @@ class dResponse {
 	 *
 	 * @return null|string
 	 */
-	public function get_errors() {
+	public function getErrors()
+	{
 		return $this->_errors;
 	}
 
@@ -101,7 +106,8 @@ class dResponse {
 	 * @param string $name
 	 * @return mixed
 	 */
-	public function __get($name) {
+	public function __get($name)
+	{
 		if(isset($this->_info[$name])) {
 			return $this->_info[$name];
 		}
@@ -113,3 +119,4 @@ class dResponse {
 		return null;
 	}
 }
+?>

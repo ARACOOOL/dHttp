@@ -20,7 +20,7 @@ $resp = $http->get();
 // Get response code
 var_dump($resp->http_code);
 // Get response body
-var_dump($resp->body);
+var_dump($resp->getBody());
 // Get request errors
 var_dump($resp->errors);
 
@@ -42,9 +42,9 @@ var_dump($resp->header);
 $http = new dHttp\dHttp();
 
 $http->add_options(array(CURLOPT_RETURNTRANSFER => false))
-	->set_user_agent('Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1')
-	->set_cookie('/tmp/cookies.txt')
-	->set_url('http://website.com')
+	->setUserAgent('Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1')
+	->setCookie('/tmp/cookies.txt')
+	->setUrl('http://website.com')
 	->get();
 
 /**

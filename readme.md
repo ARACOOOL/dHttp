@@ -5,11 +5,8 @@ Easy-to-use library!
 
 ## Install
 
-    {
-        "require": {
-            "aracoool/dhttp": "dev-master"
-        }
-    }
+* Using packagist/composer
+* Cloning the git repository
 
 ## A Few Examples
 

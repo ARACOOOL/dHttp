@@ -35,12 +35,11 @@ class dHttp {
 	 */
 	public function __construct($url = null, array $options = array()) {
 		if(!extension_loaded('curl')) {
-			throw new Exception('Error: Curl is not supported');
+			throw new Exception('The PHP cURL extension must be installed to use dHttp');
 		}
 
 		// Merge with default options
 		$this->add_options($options);
-
 		// Set URL
 		$this->set_url($url);
 	}

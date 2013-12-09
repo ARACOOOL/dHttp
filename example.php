@@ -32,6 +32,7 @@ $resp = $http->post(array(
 	'field2' => 'value2',
 ));
 
+var_dump($resp->getRaw());
 // Get response headers
 var_dump($resp->getHeader());
 

@@ -20,11 +20,11 @@ $http = new dHttp\dHttp('http://website.com');
 
 $resp = $http->get();
 // Get response code
-var_dump($resp->http_code);
+var_dump($resp->getCode());
 // Get response body
 var_dump($resp->getBody());
 // Get request errors
-var_dump($resp->errors);
+var_dump($resp->getErrors());
 ```
 
 ### POST request:
@@ -61,7 +61,7 @@ $response_array = $multi->multi(array(
 ));
 
 foreach($response_array as $item) {
-	var_dump($item->http_code);
+	var_dump($item->getCode());
 }
 ```
 

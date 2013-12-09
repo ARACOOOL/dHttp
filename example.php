@@ -18,22 +18,22 @@ $http = new dHttp\dHttp('http://website.com', array(
  */
 $resp = $http->get();
 // Get response code
-var_dump($resp->http_code);
+var_dump($resp->getCode());
 // Get response body
 var_dump($resp->getBody());
 // Get request errors
-var_dump($resp->errors);
+var_dump($resp->getErrors());
 
 /*
  * Simple post request
  */
 $resp = $http->post(array(
-		'field1' => 'value1',
-		'field2' => 'value2',
-	));
+	'field1' => 'value1',
+	'field2' => 'value2',
+));
 
 // Get response headers
-var_dump($resp->header);
+var_dump($resp->getHeader());
 
 /**
  * Another way of setting.
@@ -62,7 +62,7 @@ $response_array = $multi->multi(array(
 ));
 
 foreach ($response_array as $item) {
-	var_dump($item->http_code);
+	var_dump($resp->getCode());
 }
 
 /**

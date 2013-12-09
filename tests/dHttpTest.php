@@ -17,7 +17,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 		$resp = $http->get();
 
 		$this->assertInstanceOf('dHttp\dResponse', $resp);
-		$this->assertEquals($resp->http_code, 200);
+		$this->assertEquals($resp->getCode(), 200);
 	}
 
 	/**
@@ -29,7 +29,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 		$resp = $http->post();
 
 		$this->assertInstanceOf('dHttp\dResponse', $resp);
-		$this->assertEquals($resp->http_code, 200);
+		$this->assertEquals($resp->getCode(), 200);
 	}
 
 	/**
@@ -49,7 +49,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 
 		foreach($response_array as $item) {
 			$this->assertInstanceOf('dHttp\dResponse', $item);
-			$this->assertEquals($item->http_code, 200);
+			$this->assertEquals($item->getCode(), 200);
 		}
 	}
 }

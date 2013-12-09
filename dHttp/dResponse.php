@@ -100,19 +100,27 @@ class dResponse
 	}
 
 	/**
+	 * Return request errors
+	 *
+	 * @return int
+	 */
+	public function getCode()
+	{
+		return $this->_info['http_code'];
+	}
+
+	/**
 	 * Get access for properties
 	 *
 	 * @param string $name
+	 * @param array @params
 	 * @return mixed
 	 */
-	public function __get($name)
+	public function __call($name, $params)
 	{
+		$name = strtolower(str_replace('get', '', $name));
 		if (isset($this->_info[$name])) {
 			return $this->_info[$name];
-		}
-
-		if (method_exists($this, 'get_' . $name)) {
-			return $this->{'get_' . $name}();
 		}
 
 		return null;

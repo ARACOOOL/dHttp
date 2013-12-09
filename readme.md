@@ -25,6 +25,8 @@ var_dump($resp->getCode());
 var_dump($resp->getBody());
 // Get request errors
 var_dump($resp->getErrors());
+// Get response headers
+var_dump($resp->getHeader());
 ```
 
 ### POST request:
@@ -41,7 +43,7 @@ $http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
 	->post(array(
 		'field1' => 'value1',
 		'field2' => 'value2',
-	));
+));
 ```
 
 ### Multithreaded query:

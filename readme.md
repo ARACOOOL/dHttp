@@ -5,8 +5,8 @@ Easy-to-use library!
 
 ## Install
 
-* Using packagist/composer
-The recommended way to install react is [through composer](http://getcomposer.org).
+* Using packagist/composer: 
+The recommended way to install library is [through composer](http://getcomposer.org).
 
 ```JSON
 {

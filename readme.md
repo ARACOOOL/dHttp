@@ -6,6 +6,16 @@ Easy-to-use library!
 ## Install
 
 * Using packagist/composer
+The recommended way to install react is [through composer](http://getcomposer.org).
+
+```JSON
+{
+    "require": {
+        "aracoool/dhttp" : "dev-master"
+    }
+}
+```
+
 * Cloning the git repository
 
 ## A Few Examples

@@ -19,7 +19,7 @@
     },
     "suggest": {
         "ext-curl": "*"
-    }
+    },
     "autoload": {
         "psr-0": {"dHttp": ""}
     },

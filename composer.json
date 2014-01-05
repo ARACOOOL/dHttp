@@ -1,6 +1,5 @@
 {
     "name": "aracoool/dhttp",
-    "version" : "1.0.0",
     "description": "Simple and lightweight HTTP client based cURL",
     "keywords": ["http client", "curl"],
     "type": "library",

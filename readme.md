@@ -85,5 +85,5 @@ foreach($response_array as $item) {
 
 ## LICENSE
 
-Phabricator is released under the Apache 2.0 license except as otherwise noted.
+dHttp is released under the Apache 2.0 license except as otherwise noted.
 http://www.apache.org/licenses/LICENSE-2.0

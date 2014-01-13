@@ -23,7 +23,7 @@ The recommended way to install library is [through composer](http://getcomposer.
 ### GET request:
 
 ```php
-include_once('dHttp/dHttp.php');
+include_once('dHttp/Client.php');
 include_once('dHttp/dResponse.php');
 
 $http = new dHttp\Client('http://website.com');
@@ -42,7 +42,7 @@ var_dump($resp->getHeader());
 ### POST request:
 
 ```php
-include_once('dHttp/dHttp.php');
+include_once('dHttp/Client.php');
 include_once('dHttp/dResponse.php');
 
 $http = new dHttp\Client('http://website.com');
@@ -59,7 +59,7 @@ $http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
 ### Multithreaded query:
 
 ```php
-include_once('dHttp/dHttp.php');
+include_once('dHttp/Client.php');
 include_once('dHttp/dResponse.php');
 
 $multi = new dHttp\Client();

@@ -5,7 +5,7 @@ Easy-to-use library!
 
 ## Install
 
-* Using packagist/composer: 
+* Using packagist/composer:
 The recommended way to install library is [through composer](http://getcomposer.org).
 
 ```JSON
@@ -26,7 +26,7 @@ The recommended way to install library is [through composer](http://getcomposer.
 include_once('dHttp/dHttp.php');
 include_once('dHttp/dResponse.php');
 
-$http = new dHttp\dHttp('http://website.com');
+$http = new dHttp\Client('http://website.com');
 
 $resp = $http->get();
 // Get response code
@@ -45,7 +45,7 @@ var_dump($resp->getHeader());
 include_once('dHttp/dHttp.php');
 include_once('dHttp/dResponse.php');
 
-$http = new dHttp\dHttp('http://website.com');
+$http = new dHttp\Client('http://website.com');
 
 $http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
 	->setCookie('/tmp/cookie.txt')
@@ -62,11 +62,11 @@ $http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
 include_once('dHttp/dHttp.php');
 include_once('dHttp/dResponse.php');
 
-$multi = new dHttp\dHttp();
+$multi = new dHttp\Client();
 $response_array = $multi->multi(array(
-	new dHttp\dHttp('http://website1.com'),
+	new dHttp\Client('http://website1.com'),
 
-	new dHttp\dHttp('http://website2.com', array(
+	new dHttp\Client('http://website2.com', array(
 		CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
 		CURLOPT_TIMEOUT => 5,
 	))
@@ -80,7 +80,7 @@ foreach($response_array as $item) {
 ### Get cURL version:
 
 ```php
-\dHttp\dHttp::v();
+\dHttp\Client::v();
 ```
 
 ## LICENSE

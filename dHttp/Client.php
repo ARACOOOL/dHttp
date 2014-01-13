@@ -7,7 +7,7 @@ namespace dHttp;
  *
  * @author Askar Fuzaylov <tkdforever@gmail.com>
  */
-class dHttp
+class Client
 {
 	/**
 	 * @var array
@@ -49,7 +49,7 @@ class dHttp
 	 * Set URL
 	 *
 	 * @param string $url
-	 * @return dHttp
+	 * @return Client
 	 */
 	public function setUrl($url)
 	{
@@ -64,7 +64,7 @@ class dHttp
 	 * Set user agent
 	 *
 	 * @param string $agent
-	 * @return dHttp
+	 * @return Client
 	 */
 	public function setUserAgent($agent)
 	{
@@ -76,7 +76,7 @@ class dHttp
 	 * Set cookies
 	 *
 	 * @param string $cookie
-	 * @return dHttp
+	 * @return Client
 	 */
 	public function setCookie($cookie)
 	{
@@ -89,7 +89,7 @@ class dHttp
 	 * Add options
 	 *
 	 * @param array $params
-	 * @return dHttp
+	 * @return Client
 	 */
 	public function addOptions(array $params)
 	{
@@ -144,7 +144,7 @@ class dHttp
 		$resources = array();
 
 		foreach ($handlers as $item) {
-			if (!$item instanceof dHttp) {
+			if (!$item instanceof Client) {
 				throw new \Exception('Handler should be object instance of dHttp');
 			}
 			$res = $item->_init();
@@ -219,7 +219,7 @@ class dHttp
 	/**
 	 * Reset options
 	 *
-	 * @return dHttp
+	 * @return Client
 	 */
 	public function reset()
 	{

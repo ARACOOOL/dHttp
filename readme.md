@@ -24,7 +24,7 @@ The recommended way to install library is [through composer](http://getcomposer.
 
 ```php
 include_once('dHttp/Client.php');
-include_once('dHttp/dResponse.php');
+include_once('dHttp/Response.php');
 
 $http = new dHttp\Client('http://website.com');
 
@@ -35,15 +35,17 @@ var_dump($resp->getCode());
 var_dump($resp->getBody());
 // Get request errors
 var_dump($resp->getErrors());
-// Get response headers
-var_dump($resp->getHeader());
+// Return response headers
+var_dump($resp->getHeaders());
+// Return a specific (text/html; charset=utf-8)
+var_dump($resp->getHeader('Content-Type'));
 ```
 
 ### POST request:
 
 ```php
 include_once('dHttp/Client.php');
-include_once('dHttp/dResponse.php');
+include_once('dHttp/Response.php');
 
 $http = new dHttp\Client('http://website.com');
 
@@ -60,7 +62,7 @@ $http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
 
 ```php
 include_once('dHttp/Client.php');
-include_once('dHttp/dResponse.php');
+include_once('dHttp/Response.php');
 
 $multi = new dHttp\Client();
 $response_array = $multi->multi(array(

@@ -4,7 +4,7 @@
  * @date: 20.05.13
  */
 include_once(__DIR__ . '/../dHttp/Client.php');
-include_once(__DIR__ . '/../dHttp/dResponse.php');
+include_once(__DIR__ . '/../dHttp/Response.php');
 
 class dHttpTest extends PHPUnit_Framework_TestCase
 {
@@ -16,8 +16,11 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 		$http = new dHttp\Client('http://php.net');
 		$resp = $http->get();
 
-		$this->assertInstanceOf('dHttp\dResponse', $resp);
+		$this->assertInstanceOf('dHttp\Response', $resp);
 		$this->assertEquals($resp->getCode(), 200);
+		$this->assertInternalType('array', $resp->getHeaders());
+		$this->assertInternalType('string', $resp->getHeader('Content-Type'));
+		$this->assertEquals('text/html; charset=utf-8', $resp->getHeader('Content-Type'));
 	}
 
 	/**
@@ -28,7 +31,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 		$http = new dHttp\Client('http://php.net');
 		$resp = $http->post();
 
-		$this->assertInstanceOf('dHttp\dResponse', $resp);
+		$this->assertInstanceOf('dHttp\Response', $resp);
 		$this->assertEquals($resp->getCode(), 200);
 	}
 
@@ -48,7 +51,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 		));
 
 		foreach($response_array as $item) {
-			$this->assertInstanceOf('dHttp\dResponse', $item);
+			$this->assertInstanceOf('dHttp\Response', $item);
 			$this->assertEquals($item->getCode(), 200);
 		}
 	}

@@ -109,7 +109,7 @@ class Client
 	 *
 	 * @param array $fields
 	 * @param array $options
-	 * @return dResponse
+	 * @return Response
 	 */
 	public function post(array $fields = array(), array $options = array())
 	{
@@ -122,7 +122,7 @@ class Client
 	 * Send get request
 	 *
 	 * @param array $options
-	 * @return dResponse
+	 * @return Response
 	 */
 	public function get(array $options = array())
 	{
@@ -160,7 +160,7 @@ class Client
 
 		$result = array();
 		foreach ($resources as $item) {
-			$resp = new dResponse(curl_multi_getcontent($item), curl_getinfo($item));
+			$resp = new Response(curl_multi_getcontent($item), curl_getinfo($item));
 			$resp->setError(array(curl_errno($item) => curl_error($item)));
 			$result[] = $resp;
 			curl_multi_remove_handle($mc, $item);
@@ -173,7 +173,7 @@ class Client
 	/**
 	 * Execute the query
 	 *
-	 * @return dResponse
+	 * @return Response
 	 */
 	private function _exec()
 	{
@@ -181,7 +181,7 @@ class Client
 
 		$result = curl_exec($ch);
 		// Collect response data
-		$response = new dResponse($result, curl_getinfo($ch));
+		$response = new Response($result, curl_getinfo($ch));
 
 		if ($result === false) {
 			$response->setError(array(curl_errno($ch) => curl_error($ch)));

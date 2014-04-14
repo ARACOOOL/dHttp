@@ -116,7 +116,7 @@ class Client
 		$fields = is_array($fields) ? http_build_query($fields) : $fields;
 		
 		$this->addOptions($options);
-		$this->addOptions(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => http_build_query($fields)));
+		$this->addOptions(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $fields));
 		return $this->_exec();
 	}
 

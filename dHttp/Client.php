@@ -111,8 +111,10 @@ class Client
 	 * @param array $options
 	 * @return Response
 	 */
-	public function post(array $fields = array(), array $options = array())
+	public function post($fields, array $options = array())
 	{
+		$fields = is_array($fields) ? http_build_query($fields) : $fields;
+		
 		$this->addOptions($options);
 		$this->addOptions(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => http_build_query($fields)));
 		return $this->_exec();

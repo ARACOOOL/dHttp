@@ -111,7 +111,7 @@ class Client
 	 * @param array $options
 	 * @return Response
 	 */
-	public function post($fields, array $options = array())
+	public function post($fields = array(), array $options = array())
 	{
 		$fields = is_array($fields) ? http_build_query($fields) : $fields;
 		

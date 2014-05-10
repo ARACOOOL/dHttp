@@ -119,6 +119,22 @@ class Client
 		$this->addOptions(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $fields));
 		return $this->_exec();
 	}
+	
+	/**
+	 * Send put request
+	 *
+	 * @param array $fields
+	 * @param array $options
+	 * @return Response
+	 */
+	public function put($fields = array(), array $options = array())
+	{
+		$fields = is_array($fields) ? http_build_query($fields) : $fields;
+		
+		$this->addOptions($options);
+		$this->addOptions(array(CURLOPT_CUSTOMREQUEST => 'PUT', CURLOPT_POSTFIELDS => $fields));
+		return $this->_exec();
+	}
 
 	/**
 	 * Send get request

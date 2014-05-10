@@ -147,6 +147,19 @@ class Client
 		$this->addOptions($options);
 		return $this->_exec();
 	}
+	
+	/**
+	 * Send delete request
+	 *
+	 * @param array $options
+	 * @return Response
+	 */
+	public function delete(array $options = array())
+	{
+		$this->addOptions($options);
+		$this->addOptions(array(CURLOPT_CUSTOMREQUEST => 'DELETE'));
+		return $this->_exec();
+	}
 
 	/**
 	 * Send multithreaded queries

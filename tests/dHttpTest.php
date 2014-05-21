@@ -3,8 +3,7 @@
  * @author: Askar
  * @date: 20.05.13
  */
-include_once(__DIR__ . '/../dHttp/Client.php');
-include_once(__DIR__ . '/../dHttp/Response.php');
+include_once(__DIR__ . '/../vendor/autoload.php');
 
 class dHttpTest extends PHPUnit_Framework_TestCase
 {

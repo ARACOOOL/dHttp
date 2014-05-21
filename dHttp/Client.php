@@ -274,4 +274,3 @@ class Client
 		return isset($info[$type]) ? $info[$type] : null;
 	}
 }
-?>

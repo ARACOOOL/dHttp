@@ -13,7 +13,9 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 	public function testGetRequest()
 	{
 		$http = new dHttp\Client('http://php.net');
-		$resp = $http->get();
+		$resp = $http->get(array(
+				CURLOPT_HEADER => true
+			));
 
 		$this->assertInstanceOf('dHttp\Response', $resp);
 		$this->assertEquals($resp->getCode(), 200);

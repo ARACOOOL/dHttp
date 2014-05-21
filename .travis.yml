@@ -10,7 +10,7 @@ before_install:
   - composer selfupdate
 
 install:
-  - composer global require aracoool/dhttp:dev-master
+  - composer require aracoool/dhttp:dev-master
 
 script:
   - phpunit --colors tests/dHttpTest

@@ -10,7 +10,6 @@ before_install:
   - composer selfupdate
 
 install:
-  - composer require aracoool/dhttp:dev-master
   - composer install --dev --prefer-source
 
 script:

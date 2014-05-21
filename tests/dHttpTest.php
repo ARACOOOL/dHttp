@@ -49,6 +49,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 			new dHttp\Client('http://www.python.org/', array(
 				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
 				CURLOPT_TIMEOUT => 10,
+				CURLOPT_FOLLOWLOCATION => true
 			))
 		));
 

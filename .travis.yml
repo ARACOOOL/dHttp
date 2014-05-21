@@ -11,6 +11,7 @@ before_install:
 
 install:
   - composer require aracoool/dhttp:dev-master
+  - composer install --dev --prefer-source
 
 script:
   - phpunit --colors tests/dHttpTest

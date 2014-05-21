@@ -39,6 +39,12 @@ class Client
 		if (!extension_loaded('curl')) {
 			throw new \Exception('The PHP cURL extension must be installed to use dHttp');
 		}
+		
+		// Force IPv4, since this class isn't yet comptible with IPv6
+		$curlVersion = curl_version();
+	        if ($curlVersion['features'] & CURLOPT_IPRESOLVE) {
+	            $this->addOptions(array(CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4));
+	        }
 
 		// Merge with default options
 		$this->addOptions($options);

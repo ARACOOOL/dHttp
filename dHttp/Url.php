@@ -46,43 +46,16 @@ class Url
 	public static function buildUrl(array $parts)
 	{
 		$url = '';
-
-		$url .= (!empty($parts['scheme']))
-			? $parts['scheme'] . '://'
-			: '';
-
-		$url .= (!empty($parts['user']))
-			? $parts['user']
-			: '';
-
-		$url .= (!empty($parts['pass']))
-			? ':' . $parts['pass']
-			: '';
-
+		$url .= (!empty($parts['scheme'])) ? $parts['scheme'] . '://' : '';
+		$url .= (!empty($parts['user'])) ? $parts['user'] : '';
+		$url .= (!empty($parts['pass'])) ? ':' . $parts['pass'] : '';
 		//If we have a user or pass, make sure to add an "@"
-		$url .= (!empty($parts['user']) || !empty($parts['pass']))
-			? '@'
-			: '';
-
-		$url .= (!empty($parts['host']))
-			? $parts['host']
-			: '';
-
-		$url .= (!empty($parts['port']))
-			? ':' . $parts['port']
-			: '';
-
-		$url .= (!empty($parts['path']))
-			? $parts['path']
-			: '';
-
-		$url .= (!empty($parts['query']))
-			? '?' . $parts['query']
-			: '';
-
-		$url .= (!empty($parts['fragment']))
-			? '#' . $parts['fragment']
-			: '';
+		$url .= (!empty($parts['user']) || !empty($parts['pass'])) ? '@' : '';
+		$url .= (!empty($parts['host'])) ? $parts['host'] : '';
+		$url .= (!empty($parts['port'])) ? ':' . $parts['port'] : '';
+		$url .= (!empty($parts['path'])) ? $parts['path'] : '';
+		$url .= (!empty($parts['query'])) ? '?' . $parts['query'] : '';
+		$url .= (!empty($parts['fragment'])) ? '#' . $parts['fragment'] : '';
 
 		return $url;
 	}
@@ -91,7 +64,7 @@ class Url
 	 * Checks a passed in IP against a CIDR.
 	 *
 	 * @param string $ip
-	 * @param mixed $cidr
+	 * @param string $cidr
 	 * @return bool
 	 */
 	public static function cidr_match($ip, $cidr)

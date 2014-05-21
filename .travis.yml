@@ -6,8 +6,11 @@ php:
   - 5.4
   - 5.5
 
+before_install:
+  - composer selfupdate
+  
 install:
-  - composer require aracoool/dhttp: dev-master
+  - composer require aracoool/dhttp:dev-master
 
 script:
   - phpunit --colors tests/dHttpTest

@@ -18,7 +18,7 @@ The recommended way to install library is [through composer](http://getcomposer.
 
 * Cloning the git repository
 
-## A Few Examples
+## Examples
 
 ### GET request:
 

@@ -16,8 +16,8 @@ class Client
 		CURLOPT_ENCODING => 'utf-8',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HEADER => true,
-		CURLOPT_FOLLOWLOCATION => false,
-		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_FOLLOWLOCATION => true,
+	//	CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_USERAGENT => 'dHttp',
 		CURLOPT_TIMEOUT => 2,
 		CURLOPT_MAXREDIRS => 5
@@ -186,8 +186,7 @@ class Client
 				throw new \Exception('Handler should be object instance of dHttp');
 			}
 			$res = $item->_init();
-			// Enable followlocation
-			$item->addOptions(array(CURLOPT_FOLLOWLOCATION => true));
+
 			curl_multi_add_handle($mc, $res);
 			$resources[] = $res;
 		}

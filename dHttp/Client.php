@@ -186,6 +186,8 @@ class Client
 				throw new \Exception('Handler should be object instance of dHttp');
 			}
 			$res = $item->_init();
+			// Enable followlocation
+			$item->addOptions(array(CURLOPT_FOLLOWLOCATION => true));
 			curl_multi_add_handle($mc, $res);
 			$resources[] = $res;
 		}

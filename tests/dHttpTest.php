@@ -42,7 +42,9 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$multi = new dHttp\Client();
 		$response_array = $multi->multi(array(
-			new dHttp\Client('http://php.net'),
+			new dHttp\Client('http://php.net', array(
+				CURLOPT_FOLLOWLOCATION => true	
+			)),
 
 			new dHttp\Client('http://www.python.org/', array(
 				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',

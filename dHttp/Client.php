@@ -57,7 +57,7 @@ class Client
 	public function setUrl($url)
 	{
 		if (!is_null($url)) {
-			$this->_options[CURLOPT_URL] = $url;
+			$this->_options[CURLOPT_URL] = Url::validateUrl($url);
 		}
 
 		return $this;

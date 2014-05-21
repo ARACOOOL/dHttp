@@ -8,7 +8,9 @@ php:
 
 before_install:
   - composer selfupdate
-  - composer install
+
+install:
+  - composer global require aracoool/dhttp:dev-master
 
 script:
   - phpunit --colors tests/dHttpTest

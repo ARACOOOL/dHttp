@@ -38,9 +38,9 @@ class Client
 		}
 		
 		// Force IPv4, since this class isn't yet compatible with IPv6
-        if (self::v('features') & CURLOPT_IPRESOLVE) {
-            $this->addOptions(array(CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4));
-        }
+		if (self::v('features') & CURLOPT_IPRESOLVE) {
+			$this->addOptions(array(CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4));
+		}
 
 		// Merge with default options
 		$this->addOptions($options);

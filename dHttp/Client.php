@@ -179,7 +179,7 @@ class Client
 
 		foreach ($handlers as $item) {
 			if (!$item instanceof Client) {
-				throw new dException('Handler should be object instance of dHttp');
+				throw new dException('Handler should be object instance of dHttp\Client');
 			}
 			$res = $item->_init();
 

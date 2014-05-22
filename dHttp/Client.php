@@ -29,7 +29,7 @@ class Client
 	 *
 	 * @param null $url
 	 * @param array $options
-	 * @throws \Exception
+	 * @throws dException
 	 */
 	public function __construct($url = null, array $options = array())
 	{

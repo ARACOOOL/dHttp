@@ -85,7 +85,7 @@ foreach($response_array as $item) {
 \dHttp\Client::v();
 ```
 
-## LICENSE
+## The MIT License (MIT)
 
-dHttp is released under the Apache 2.0 license except as otherwise noted.
-http://www.apache.org/licenses/LICENSE-2.0
+dHttp is released under the MIT license except as otherwise noted.
+http://opensource.org/licenses/MIT

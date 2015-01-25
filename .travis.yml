@@ -12,6 +12,7 @@ matrix:
     
 before_install:
   - composer selfupdate
+  - mkdir -p build/logs
 
 install:
   - composer install --dev --prefer-source

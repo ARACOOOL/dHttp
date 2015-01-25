@@ -5,7 +5,11 @@ php:
   - 5.3
   - 5.4
   - 5.5
-
+  
+matrix:
+  allow_failures:
+    - php: hhvm
+    
 before_install:
   - composer selfupdate
 
@@ -14,3 +18,6 @@ install:
 
 script:
   - phpunit --colors tests/dHttpTest
+  
+after_script:
+  - php vendor/bin/coveralls

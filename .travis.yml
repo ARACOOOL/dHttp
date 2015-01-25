@@ -5,6 +5,8 @@ php:
   - 5.3
   - 5.4
   - 5.5
+  - 5.6
+  - hhvm
   
 matrix:
   allow_failures:
@@ -15,10 +17,7 @@ before_install:
   - mkdir -p build/logs
 
 install:
-  - composer install --dev --prefer-source
-
-script:
-  - phpunit --colors tests/dHttpTest
+  - composer install --dev --no-interaction
   
 after_script:
   - php vendor/bin/coveralls

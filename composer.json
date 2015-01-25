@@ -15,7 +15,8 @@
         "lib-curl": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "4.*",
+        "satooshi/php-coveralls": "dev-master"
     },
     "suggest": {
         "ext-curl": "*"

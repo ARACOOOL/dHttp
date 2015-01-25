@@ -64,13 +64,13 @@ class Url
 	 * Checks a passed in IP against a CIDR.
 	 *
 	 * @param string $ip
-	 * @param string $cidr
+	 * @param string $ranges
 	 * @return bool
 	 */
-	public static function cidr_match($ip, $cidr)
+	public static function cidr_match($ip, $ranges)
 	{
-		$cidr = (array)$cidr;
-		foreach ($cidr as $range) {
+		$ranges = (array)$ranges;
+		foreach ($ranges as $range) {
 			list($subnet, $mask) = explode('/', $range);
 			if ((ip2long($ip) & ~((1 << (32 - $mask)) - 1)) == ip2long($subnet)) {
 				return true;
@@ -79,4 +79,4 @@ class Url
 
 		return false;
 	}
-} 
+}

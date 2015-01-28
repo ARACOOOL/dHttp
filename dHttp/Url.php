@@ -10,25 +10,25 @@ class Url
 	/**
 	 * Validate URL
 	 *
-	 * @param string $url
-	 * @return string string
-	 * @throws dException
+	 * @param $url
+	 * @return string
+	 * @throws \Exception
 	 */
 	public static function validateUrl($url)
 	{
-		if (trim($url) == '') {
-			throw new dException("Provided URL '$url' cannot be empty");
+		if (!trim($url)) {
+			throw new \Exception("Provided URL '$url' cannot be empty");
 		}
 
 		// Split URL into parts first
 		$parts = parse_url($url);
 
-		if (empty($parts)) {
-			throw new dException("Error parsing URL '$url'");
+		if (!$parts) {
+			throw new \Exception("Error parsing URL '$url'");
 		}
 
 		if (!array_key_exists('host', $parts)) {
-			throw new dException("Provided URL '$url' doesn't contain a hostname");
+			throw new \Exception("Provided URL '$url' doesn't contain a hostname");
 		}
 
 		// Rebuild the URL
@@ -64,12 +64,12 @@ class Url
 	 * Checks a passed in IP against a CIDR.
 	 *
 	 * @param string $ip
-	 * @param string $ranges
+	 * @param string|array $ranges
 	 * @return bool
 	 */
 	public static function cidr_match($ip, $ranges)
 	{
-		$ranges = (array)$ranges;
+		$ranges = is_array($ranges) ? $ranges : (array)$ranges;
 		foreach ($ranges as $range) {
 			list($subnet, $mask) = explode('/', $range);
 			if ((ip2long($ip) & ~((1 << (32 - $mask)) - 1)) == ip2long($subnet)) {

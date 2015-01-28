@@ -80,7 +80,7 @@ class Response
 	 */
 	public function getHeader($name, $default = null)
 	{
-		return isset($this->_headers[$name]) ? $this->_headers[$name] : $default;
+		return array_key_exists($name, $this->_headers) ? $this->_headers[$name] : $default;
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Response
 	public function __call($name, $params)
 	{
 		$name = strtolower(str_replace('get', '', $name));
-		if (isset($this->_info[$name])) {
+		if (array_key_exists($name, $this->_info)) {
 			return $this->_info[$name];
 		}
 

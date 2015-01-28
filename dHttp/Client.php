@@ -56,7 +56,7 @@ class Client
 	 */
 	public function setUrl($url)
 	{
-		if (!is_null($url)) {
+		if ($url !== null) {
 			$this->_options[CURLOPT_URL] = Url::validateUrl($url);
 		}
 
@@ -110,7 +110,7 @@ class Client
 	/**
 	 * Send post request
 	 *
-	 * @param array $fields
+	 * @param string|array $fields
 	 * @param array $options
 	 * @return Response
 	 */
@@ -126,7 +126,7 @@ class Client
 	/**
 	 * Send put request
 	 *
-	 * @param array $fields
+	 * @param string|array $fields
 	 * @param array $options
 	 * @return Response
 	 */
@@ -271,6 +271,6 @@ class Client
 	public static function v($type = 'version')
 	{
 		$info = curl_version();
-		return isset($info[$type]) ? $info[$type] : null;
+		return array_key_exists($type, $info) ? $info[$type] : null;
 	}
 }

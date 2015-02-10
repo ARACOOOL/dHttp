@@ -213,11 +213,11 @@ class Client
 	private function _exec()
 	{
 		$ch = $this->_init();
-		$result = [
+		$result = array(
 			'response' => curl_exec($ch),
 			'options' => $this->_options,
 			'info' => curl_getinfo($ch)
-		];
+		);
 		// Collect response data
 		$response = new Response($result);
 

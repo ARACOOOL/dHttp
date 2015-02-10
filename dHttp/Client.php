@@ -213,10 +213,13 @@ class Client
 	private function _exec()
 	{
 		$ch = $this->_init();
-
-		$result = curl_exec($ch);
+		$result = [
+			'response' => curl_exec($ch),
+			'options' => $this->_options,
+			'info' => curl_getinfo($ch)
+		];
 		// Collect response data
-		$response = new Response($result, curl_getinfo($ch));
+		$response = new Response($result);
 
 		if ($result === false) {
 			$response->setError(array(curl_errno($ch) => curl_error($ch)));

@@ -34,20 +34,18 @@ class Response
 	 * Constructor
 	 *
 	 * @param string $response
-	 * @param array $info
 	 */
-	public function __construct($response, array $info)
+	public function __construct($response)
 	{
-		$this->_raw = $response;
-		$this->_info = $info;
+		$this->_raw = $response['response'];
+		$this->_info = $response['info'];
 		// Separate body a from a header
-		if (strpos($response, 'HTTP/1') !== false) {
+		if (isset($response['options'][CURLOPT_HEADER]) && $response['options'][CURLOPT_HEADER]) {
 			list($headers, $this->_body) = explode("\r\n\r\n", $response, 2);
 			// Parse headers
 			$this->_parseHeaders($headers);
-		}
-		else {
-			$this->_body = $response;
+		} else {
+			$this->_body = $response['response'];
 		}
 	}
 

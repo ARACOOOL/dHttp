@@ -41,7 +41,7 @@ class Response
 		$this->_info = $response['info'];
 		// Separate body a from a header
 		if (isset($response['options'][CURLOPT_HEADER]) && $response['options'][CURLOPT_HEADER]) {
-			list($headers, $this->_body) = explode("\r\n\r\n", $response, 2);
+			list($headers, $this->_body) = explode("\r\n\r\n", $response['response'], 2);
 			// Parse headers
 			$this->_parseHeaders($headers);
 		} else {

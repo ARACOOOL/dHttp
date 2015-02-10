@@ -195,8 +195,17 @@ class Client
 
 		$result = array();
 		foreach ($resources as $item) {
-			$resp = new Response(curl_multi_getcontent($item), curl_getinfo($item));
-			$resp->setError(array(curl_errno($item) => curl_error($item)));
+			$resp = new Response(array(
+				'response' => curl_multi_getcontent($item),
+				'options' => $this->_options,
+				'info' => curl_getinfo($item)
+			));
+
+			$errno = curl_errno($item);
+			if($errno) {
+				$resp->setError(array(curl_errno($item) => curl_error($item)));
+			}
+			
 			$result[] = $resp;
 			curl_multi_remove_handle($mc, $item);
 		}
@@ -213,16 +222,16 @@ class Client
 	private function _exec()
 	{
 		$ch = $this->_init();
-		$result = array(
+		// Collect response data
+		$response = new Response(array(
 			'response' => curl_exec($ch),
 			'options' => $this->_options,
 			'info' => curl_getinfo($ch)
-		);
-		// Collect response data
-		$response = new Response($result);
+		));
 
-		if ($result === false) {
-			$response->setError(array(curl_errno($ch) => curl_error($ch)));
+		$errno = curl_errno($ch);
+		if ($errno) {
+			$response->setError(array($errno => curl_error($ch)));
 		}
 		curl_close($ch);
 

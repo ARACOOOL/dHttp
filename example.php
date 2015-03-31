@@ -18,11 +18,11 @@ $http = new dHttp\Client('http://website.com', array(
  */
 $resp = $http->get();
 // Get response code
-var_dump($resp->getCode());
+$resp->getCode();
 // Get response body
-var_dump($resp->getBody());
+$resp->getBody();
 // Get request errors
-var_dump($resp->getErrors());
+$resp->getErrors();
 
 /*
  * Simple post request
@@ -32,11 +32,11 @@ $resp = $http->post(array(
 	'field2' => 'value2',
 ));
 
-var_dump($resp->getRaw());
+$resp->getRaw();
 // Return response headers
-var_dump($resp->getHeaders());
+$resp->getHeaders();
 // Return a specific (text/html; charset=utf-8)
-var_dump($resp->getHeader('Content-Type'));
+$resp->getHeader('Content-Type');
 
 /**
  * Another way of setting.
@@ -65,7 +65,7 @@ $response_array = $multi->multi(array(
 ));
 
 foreach ($response_array as $item) {
-	var_dump($resp->getCode());
+	$resp->getCode();
 }
 
 /**

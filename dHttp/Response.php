@@ -12,7 +12,7 @@ class Response
 	/**
 	 * @var string
 	 */
-	private $_raw = null;
+	private $_raw;
 	/**
 	 * @var string
 	 */
@@ -20,7 +20,7 @@ class Response
 	/**
 	 * @var string
 	 */
-	private $_body = null;
+	private $_body;
 	/**
 	 * @var array
 	 */
@@ -33,12 +33,13 @@ class Response
 	/**
 	 * Constructor
 	 *
-	 * @param string $response
+	 * @param array $response
 	 */
-	public function __construct($response)
+	public function __construct(array $response)
 	{
 		$this->_raw = $response['response'];
 		$this->_info = $response['info'];
+
 		// Separate body a from a header
 		if (isset($response['options'][CURLOPT_HEADER]) && $response['options'][CURLOPT_HEADER]) {
 			list($headers, $this->_body) = explode("\r\n\r\n", $response['response'], 2);

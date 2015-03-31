@@ -116,11 +116,7 @@ class Client
 	 */
 	public function post($fields = array(), array $options = array())
 	{
-		$fields = is_array($fields) ? http_build_query($fields) : $fields;
-		
-		$this->addOptions($options);
-		$this->addOptions(array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $fields));
-		return $this->_exec();
+		return $this->get($options + array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields));
 	}
 	
 	/**
@@ -132,11 +128,7 @@ class Client
 	 */
 	public function put($fields = array(), array $options = array())
 	{
-		$fields = is_array($fields) ? http_build_query($fields) : $fields;
-		
-		$this->addOptions($options);
-		$this->addOptions(array(CURLOPT_CUSTOMREQUEST => 'PUT', CURLOPT_POSTFIELDS => $fields));
-		return $this->_exec();
+        return $this->get($options + array(CURLOPT_CUSTOMREQUEST => 'PUT', CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields));
 	}
 
 	/**
@@ -159,9 +151,7 @@ class Client
 	 */
 	public function delete(array $options = array())
 	{
-		$this->addOptions($options);
-		$this->addOptions(array(CURLOPT_CUSTOMREQUEST => 'DELETE'));
-		return $this->_exec();
+        return $this->get($options + array(CURLOPT_CUSTOMREQUEST => 'DELETE'));
 	}
 
 	/**

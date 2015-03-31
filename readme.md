@@ -1,7 +1,7 @@
 dHttp is a lightweight library to work with Curl.
 Easy-to-use library!
 
-[![Build Status](https://travis-ci.org/ARACOOOL/dHttp.png?branch=master)](https://travis-ci.org/ARACOOOL/dHttp) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ARACOOOL/dHttp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ARACOOOL/dHttp/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/aracoool/dhttp/v/stable.svg)](https://packagist.org/packages/aracoool/dhttp) [![Build Status](https://travis-ci.org/ARACOOOL/dHttp.png?branch=master)](https://travis-ci.org/ARACOOOL/dHttp) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ARACOOOL/dHttp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ARACOOOL/dHttp/?branch=master) [![License](https://poser.pugx.org/aracoool/dhttp/license.svg)](https://packagist.org/packages/aracoool/dhttp)
 
 ## Install
 
@@ -84,8 +84,3 @@ foreach($response_array as $item) {
 ```php
 \dHttp\Client::v();
 ```
-
-## The MIT License (MIT)
-
-dHttp is released under the MIT license except as otherwise noted.
-http://opensource.org/licenses/MIT

@@ -3,6 +3,8 @@ Easy-to-use library!
 
 [![Latest Stable Version](https://poser.pugx.org/aracoool/dhttp/v/stable.svg)](https://packagist.org/packages/aracoool/dhttp) [![Build Status](https://travis-ci.org/ARACOOOL/dHttp.png?branch=master)](https://travis-ci.org/ARACOOOL/dHttp) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ARACOOOL/dHttp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ARACOOOL/dHttp/?branch=master) [![License](https://poser.pugx.org/aracoool/dhttp/license.svg)](https://packagist.org/packages/aracoool/dhttp)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/576d6279-1a3b-48db-945c-41e2723fe15a/big.png)](https://insight.sensiolabs.com/projects/576d6279-1a3b-48db-945c-41e2723fe15a)
+
 ## Install
 
 * Using packagist/composer:

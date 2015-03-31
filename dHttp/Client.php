@@ -27,7 +27,7 @@ class Client
 	/**
 	 * Construct
 	 *
-	 * @param null $url
+	 * @param string $url
 	 * @param array $options
 	 * @throws \Exception
 	 */

@@ -31,7 +31,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$http = new dHttp\Client('http://php.net');
 		$resp = $http->post([], [CURLOPT_HEADER => true]);
-        
+
 		$this->assertInstanceOf('dHttp\Response', $resp);
 		$this->assertEquals($resp->getCode(), 200);
 	}

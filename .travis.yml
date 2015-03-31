@@ -21,9 +21,6 @@ install:
 
 script:
   - phpunit --colors tests/dHttpTest --coverage-clover=coverage.xml
-  
-after_script:
-  - php vendor/bin/coveralls
 
 after_success:
   - codecov

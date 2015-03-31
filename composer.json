@@ -18,6 +18,6 @@
         "ext-curl": "*"
     },
     "autoload": {
-        "psr-0": {"dHttp": ""}
+        "psr-4": {"dHttp\\": "dHttp/"}
     }
 }

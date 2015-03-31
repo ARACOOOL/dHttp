@@ -44,7 +44,7 @@ class Response
 		if (isset($response['options'][CURLOPT_HEADER]) && $response['options'][CURLOPT_HEADER]) {
 			list($headers, $this->_body) = explode("\r\n\r\n", $response['response'], 2);
 			// Parse headers
-			$this->_parseHeaders($headers);
+			$this->parseHeaders($headers);
 		} else {
 			$this->_body = $response['response'];
 		}
@@ -139,10 +139,11 @@ class Response
 		return null;
 	}
 
-	/**
-	 * Parse headers
-	 */
-	private function _parseHeaders($headers)
+    /**
+     * Parse headers
+     * @param $headers
+     */
+	private function parseHeaders($headers)
 	{
 		$exploded = explode("\r\n", $headers);
 		foreach($exploded as $headerString) {

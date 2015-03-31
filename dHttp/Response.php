@@ -16,7 +16,7 @@ class Response
 	/**
 	 * @var string
 	 */
-	private $_headers = array();
+	private $_headers = [];
 	/**
 	 * @var string
 	 */
@@ -24,11 +24,11 @@ class Response
 	/**
 	 * @var array
 	 */
-	private $_errors = array();
+	private $_errors = [];
 	/**
 	 * @var array
 	 */
-	private $_info = array();
+	private $_info = [];
 
 	/**
 	 * Constructor

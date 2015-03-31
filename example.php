@@ -7,11 +7,11 @@
 include_once('dHttp/Client.php');
 include_once('dHttp/Response.php');
 
-$http = new dHttp\Client('http://website.com', array(
+$http = new dHttp\Client('http://website.com', [
 	CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
 	CURLOPT_TIMEOUT => 5,
 	CURLOPT_HEADER => true
-));
+]);
 
 /*
  * Simple get request
@@ -27,10 +27,10 @@ $resp->getErrors();
 /*
  * Simple post request
  */
-$resp = $http->post(array(
+$resp = $http->post([
 	'field1' => 'value1',
 	'field2' => 'value2',
-));
+]);
 
 $resp->getRaw();
 // Return response headers
@@ -44,7 +44,7 @@ $resp->getHeader('Content-Type');
  */
 $http = new dHttp\Client();
 
-$http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
+$http->addOptions([CURLOPT_RETURNTRANSFER => false])
 	->setUserAgent('Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1')
 	->setCookie('/tmp/cookies.txt')
 	->setUrl('http://website.com')
@@ -55,14 +55,14 @@ $http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
  */
 
 $multi = new dHttp\Client();
-$response_array = $multi->multi(array(
+$response_array = $multi->multi([
 	new dHttp\Client('http://website1.com'),
 
-	new dHttp\Client('http://website2.com', array(
+	new dHttp\Client('http://website2.com', [
 		CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
 		CURLOPT_TIMEOUT => 5,
-	))
-));
+    ])
+]);
 
 foreach ($response_array as $item) {
 	$resp->getCode();

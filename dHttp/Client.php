@@ -12,17 +12,17 @@ class Client
 	/**
 	 * @var array
 	 */
-	private $_default = array(
+	private $_default = [
 		CURLOPT_ENCODING => 'utf-8',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => false,
 		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_USERAGENT => 'dHttp'
-	);
+    ];
 	/**
 	 * @var array
 	 */
-	private $_options = array();
+	private $_options = [];
 
 	/**
 	 * Construct
@@ -31,7 +31,7 @@ class Client
 	 * @param array $options
 	 * @throws \Exception
 	 */
-	public function __construct($url = null, array $options = array())
+	public function __construct($url = null, array $options = [])
 	{
 		if (!extension_loaded('curl')) {
 			throw new \Exception('The PHP cURL extension must be installed to use dHttp');
@@ -39,7 +39,7 @@ class Client
 		
 		// Force IPv4, since this class isn't yet compatible with IPv6
 		if (self::v('features') & CURLOPT_IPRESOLVE) {
-			$this->addOptions(array(CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4));
+			$this->addOptions([CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4]);
 		}
 
 		// Merge with default options
@@ -114,9 +114,9 @@ class Client
 	 * @param array $options
 	 * @return Response
 	 */
-	public function post($fields = array(), array $options = array())
+	public function post($fields = [], array $options = [])
 	{
-		return $this->get($options + array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields));
+		return $this->get($options + [CURLOPT_POST => true, CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields]);
 	}
 	
 	/**
@@ -126,9 +126,9 @@ class Client
 	 * @param array $options
 	 * @return Response
 	 */
-	public function put($fields = array(), array $options = array())
+	public function put($fields = [], array $options = [])
 	{
-        return $this->get($options + array(CURLOPT_CUSTOMREQUEST => 'PUT', CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields));
+        return $this->get($options + [CURLOPT_CUSTOMREQUEST => 'PUT', CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields]);
 	}
 
 	/**
@@ -137,7 +137,7 @@ class Client
 	 * @param array $options
 	 * @return Response
 	 */
-	public function get(array $options = array())
+	public function get(array $options = [])
 	{
 		$this->addOptions($options);
 		return $this->exec();
@@ -149,9 +149,9 @@ class Client
 	 * @param array $options
 	 * @return Response
 	 */
-	public function delete(array $options = array())
+	public function delete(array $options = [])
 	{
-        return $this->get($options + array(CURLOPT_CUSTOMREQUEST => 'DELETE'));
+        return $this->get($options + [CURLOPT_CUSTOMREQUEST => 'DELETE']);
 	}
 
 	/**
@@ -165,7 +165,7 @@ class Client
 	{
 		//create the multiple cURL handle
 		$mc = curl_multi_init();
-		$resources = array();
+		$resources = [];
 
 		foreach ($handlers as $item) {
 			if (!$item instanceof Client) {
@@ -183,17 +183,17 @@ class Client
 			curl_multi_exec($mc, $running);
 		} while ($running > 0);
 
-		$result = array();
+		$result = [];
 		foreach ($resources as $item) {
-			$resp = new Response(array(
+			$resp = new Response([
 				'response' => curl_multi_getcontent($item),
 				'options' => $this->_options,
 				'info' => curl_getinfo($item)
-			));
+            ]);
 
 			$errno = curl_errno($item);
 			if($errno) {
-				$resp->setError(array(curl_errno($item) => curl_error($item)));
+				$resp->setError([curl_errno($item) => curl_error($item)]);
 			}
 			
 			$result[] = $resp;
@@ -213,15 +213,15 @@ class Client
 	{
 		$ch = $this->init();
 		// Collect response data
-		$response = new Response(array(
+		$response = new Response([
 			'response' => curl_exec($ch),
 			'options' => $this->_options,
 			'info' => curl_getinfo($ch)
-		));
+        ]);
 
 		$errno = curl_errno($ch);
 		if ($errno) {
-			$response->setError(array($errno => curl_error($ch)));
+			$response->setError([$errno => curl_error($ch)]);
 		}
 		curl_close($ch);
 
@@ -260,7 +260,7 @@ class Client
 	 */
 	public function reset()
 	{
-		$this->_options = array();
+		$this->_options = [];
 		return $this;
 	}
 

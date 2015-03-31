@@ -17,18 +17,18 @@ class Url
     public static function validateUrl($url)
     {
         if (!trim($url)) {
-            throw new \Exception("Provided URL '$url' cannot be empty");
+            throw new \InvalidArgumentException("Provided URL '$url' cannot be empty");
         }
 
         // Split URL into parts first
         $parts = parse_url($url);
 
         if (!$parts) {
-            throw new \Exception("Error parsing URL '$url'");
+            throw new \InvalidArgumentException("Error parsing URL '$url'");
         }
 
         if (!array_key_exists('host', $parts)) {
-            throw new \Exception("Provided URL '$url' doesn't contain a hostname");
+            throw new \InvalidArgumentException("Provided URL '$url' doesn't contain a hostname");
         }
 
         // Rebuild the URL
@@ -58,25 +58,5 @@ class Url
         $url .= (!empty($parts['fragment'])) ? '#' . $parts['fragment'] : '';
 
         return $url;
-    }
-
-    /**
-     * Checks a passed in IP against a CIDR.
-     *
-     * @param string $ip
-     * @param string|array $ranges
-     * @return bool
-     */
-    public static function cidrMatch($ip, $ranges)
-    {
-        $ranges = is_array($ranges) ? $ranges : (array)$ranges;
-        foreach ($ranges as $range) {
-            list($subnet, $mask) = explode('/', $range);
-            if ((ip2long($ip) & ~((1 << (32 - $mask)) - 1)) == ip2long($subnet)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

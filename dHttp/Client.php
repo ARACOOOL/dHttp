@@ -34,7 +34,7 @@ class Client
 	public function __construct($url = null, array $options = [])
 	{
 		if (!extension_loaded('curl')) {
-			throw new \Exception('The PHP cURL extension must be installed to use dHttp');
+			throw new \RuntimeException('The PHP cURL extension must be installed to use dHttp');
 		}
 		
 		// Force IPv4, since this class isn't yet compatible with IPv6
@@ -169,7 +169,7 @@ class Client
 
 		foreach ($handlers as $item) {
 			if (!$item instanceof Client) {
-				throw new \Exception('Handler should be object instance of dHttp\Client');
+				throw new \RuntimeException('Handler should be object instance of dHttp\Client');
 			}
 			$res = $item->init();
 

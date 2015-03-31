@@ -14,13 +14,16 @@ matrix:
     
 before_install:
   - composer selfupdate
-  - mkdir -p build/logs
+  - sudo pip install codecov
 
 install:
   - composer install --dev --no-interaction
 
 script:
-  - phpunit --colors tests/dHttpTest
+  - phpunit --colors tests/dHttpTest --coverage-clover=coverage.xml
   
 after_script:
   - php vendor/bin/coveralls
+
+after_success:
+  - codecov

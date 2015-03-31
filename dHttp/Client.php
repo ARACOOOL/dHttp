@@ -140,7 +140,7 @@ class Client
 	public function get(array $options = array())
 	{
 		$this->addOptions($options);
-		return $this->_exec();
+		return $this->exec();
 	}
 	
 	/**
@@ -171,7 +171,7 @@ class Client
 			if (!$item instanceof Client) {
 				throw new \Exception('Handler should be object instance of dHttp\Client');
 			}
-			$res = $item->_init();
+			$res = $item->init();
 
 			curl_multi_add_handle($mc, $res);
 			$resources[] = $res;
@@ -209,9 +209,9 @@ class Client
 	 *
 	 * @return Response
 	 */
-	private function _exec()
+	private function exec()
 	{
-		$ch = $this->_init();
+		$ch = $this->init();
 		// Collect response data
 		$response = new Response(array(
 			'response' => curl_exec($ch),
@@ -233,11 +233,11 @@ class Client
 	 *
 	 * @return resource
 	 */
-	public function _init()
+	public function init()
 	{
 		$ch = curl_init();
 		// The initial parameters
-		$this->_setCurlOptions($ch, $this->_options);
+		$this->setCurlOptions($ch, $this->_options);
 		return $ch;
 	}
 
@@ -248,7 +248,7 @@ class Client
 	 * @param array $options
 	 * @return void
 	 */
-	private function _setCurlOptions(&$ch, array $options)
+	private function setCurlOptions(&$ch, array $options)
 	{
 		curl_setopt_array($ch, $options);
 	}

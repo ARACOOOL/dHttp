@@ -19,4 +19,3 @@ checks:
         unused_properties: true
         unused_parameters: true
         unused_methods: true
-

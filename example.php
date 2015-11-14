@@ -4,8 +4,8 @@
  * Example to use library
  */
 
-include_once('dHttp/Client.php');
-include_once('dHttp/Response.php');
+include_once('src/Client.php');
+include_once('src/Response.php');
 
 $http = new dHttp\Client('http://website.com', [
 	CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',

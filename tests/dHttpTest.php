@@ -7,56 +7,56 @@ include_once(__DIR__ . '/../vendor/autoload.php');
 
 class dHttpTest extends PHPUnit_Framework_TestCase
 {
-	/**
-	 *
-	 */
-	public function testGetRequest()
-	{
-		$http = new dHttp\Client('http://php.net');
-		$resp = $http->get([
-				CURLOPT_HEADER => true
+    /**
+     *
+     */
+    public function testGetRequest()
+    {
+        $http = new dHttp\Client('http://php.net');
+        $resp = $http->get([
+            CURLOPT_HEADER => true
         ]);
 
-		$this->assertInstanceOf('dHttp\Response', $resp);
-		$this->assertEquals($resp->getCode(), 200);
-		$this->assertInternalType('array', $resp->getHeaders());
-		$this->assertInternalType('string', $resp->getHeader('Content-Type'));
-		$this->assertEquals('text/html; charset=utf-8', $resp->getHeader('Content-Type'));
-	}
+        self::assertInstanceOf('dHttp\Response', $resp);
+        self::assertEquals($resp->getCode(), 200);
+        self::assertInternalType('array', $resp->getHeaders());
+        self::assertInternalType('string', $resp->getHeader('Content-Type'));
+        self::assertEquals('text/html; charset=utf-8', $resp->getHeader('Content-Type'));
+    }
 
-	/**
-	 *
-	 */
-	public function testPostRequest()
-	{
-		$http = new dHttp\Client('http://php.net');
-		$resp = $http->post([], [CURLOPT_HEADER => true]);
+    /**
+     *
+     */
+    public function testPostRequest()
+    {
+        $http = new dHttp\Client('http://php.net');
+        $resp = $http->post([], [CURLOPT_HEADER => true]);
 
-		$this->assertInstanceOf('dHttp\Response', $resp);
-		$this->assertEquals($resp->getCode(), 200);
-	}
+        self::assertInstanceOf('dHttp\Response', $resp);
+        self::assertEquals($resp->getCode(), 200);
+    }
 
-	/**
-	 *
-	 */
-	public function testMultiRequest()
-	{
-		$multi = new dHttp\Client();
-		$response_array = $multi->multi([
-			new dHttp\Client('http://php.net', [
-				CURLOPT_FOLLOWLOCATION => true
+    /**
+     *
+     */
+    public function testMultiRequest()
+    {
+        $multi = new dHttp\Client();
+        $response_array = $multi->multi([
+            new dHttp\Client('http://php.net', [
+                CURLOPT_FOLLOWLOCATION => true
             ]),
-
-			new dHttp\Client('http://www.python.org/', [
-				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
-				CURLOPT_TIMEOUT => 10,
-				CURLOPT_FOLLOWLOCATION => true
+            new dHttp\Client('http://www.python.org/', [
+                CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
+                CURLOPT_TIMEOUT => 10,
+                CURLOPT_FOLLOWLOCATION => true
             ])
         ]);
 
-		foreach($response_array as $item) {
-			$this->assertInstanceOf('dHttp\Response', $item);
-			$this->assertEquals($item->getCode(), 200);
-		}
-	}
+        /* @var $item \dHttp\Response */
+        foreach ($response_array as $item) {
+            self::assertInstanceOf('dHttp\Response', $item);
+            self::assertEquals($item->getCode(), 200);
+        }
+    }
 }

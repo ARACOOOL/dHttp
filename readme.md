@@ -20,7 +20,7 @@ The recommended way to install library is [through composer](http://getcomposer.
 
 * Cloning the git repository
 
-## Examples
+## Usage
 
 ### GET request:
 

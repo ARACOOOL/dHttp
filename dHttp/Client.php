@@ -174,7 +174,7 @@ class Client
      * @param array $options
      * @return Response
      */
-    public function post($fields = [], array $options = [])
+    public function post(array $fields = [], array $options = [])
     {
         return $this->get($options + [
                 CURLOPT_POST => true,
@@ -189,7 +189,7 @@ class Client
      * @param array $options
      * @return Response
      */
-    public function put($fields = [], array $options = [])
+    public function put(array $fields = [], array $options = [])
     {
         return $this->get($options + [
                 CURLOPT_CUSTOMREQUEST => 'PUT',

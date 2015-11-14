@@ -25,12 +25,11 @@ The recommended way to install library is [through composer](http://getcomposer.
 ### GET request:
 
 ```php
-include_once('dHttp/Client.php');
-include_once('dHttp/Response.php');
+required __DIR__ . '/vendor/autoload.php';
 
-$http = new dHttp\Client('http://website.com');
+$client = new dHttp\Client('http://website.com');
 
-$resp = $http->get();
+$resp = $client->get();
 // Get response code
 var_dump($resp->getCode());
 // Get response body
@@ -46,12 +45,10 @@ var_dump($resp->getHeader('Content-Type'));
 ### POST request:
 
 ```php
-include_once('dHttp/Client.php');
-include_once('dHttp/Response.php');
+required __DIR__ . '/vendor/autoload.php';
 
-$http = new dHttp\Client('http://website.com');
-
-$http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
+$client = new dHttp\Client('http://website.com');
+$client->addOptions(array(CURLOPT_RETURNTRANSFER => false))
 	->setCookie('/tmp/cookie.txt')
 	->setUserAgent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31')
 	->post(array(
@@ -63,13 +60,11 @@ $http->addOptions(array(CURLOPT_RETURNTRANSFER => false))
 ### Multithreaded query:
 
 ```php
-include_once('dHttp/Client.php');
-include_once('dHttp/Response.php');
+required __DIR__ . '/vendor/autoload.php';
 
-$multi = new dHttp\Client();
-$response_array = $multi->multi(array(
+$client = new dHttp\Client();
+$response_array = $client->multi(array(
 	new dHttp\Client('http://website1.com'),
-
 	new dHttp\Client('http://website2.com', array(
 		CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1',
 		CURLOPT_TIMEOUT => 5,

@@ -27,7 +27,10 @@ The recommended way to install library is [through composer](http://getcomposer.
 ```php
 required __DIR__ . '/vendor/autoload.php';
 
-$client = new dHttp\Client('http://website.com');
+// http://website.com?param1=value1
+$client = new dHttp\Client(['http://website.com', [
+    'param1' => 'value1'
+]], [CURLOPT_TIMEOUT => 5]);
 
 $resp = $client->get();
 // Get response code
@@ -48,7 +51,7 @@ var_dump($resp->getHeader('Content-Type'));
 required __DIR__ . '/vendor/autoload.php';
 
 $client = new dHttp\Client('http://website.com');
-$client->addOptions(array(CURLOPT_RETURNTRANSFER => false))
+$client->addOptions([CURLOPT_RETURNTRANSFER => false])
 	->setCookie('/tmp/cookie.txt')
 	->setUserAgent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31')
 	->post(array(

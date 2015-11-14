@@ -17,7 +17,7 @@ class Client
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_USERAGENT => 'dHttp'
+        CURLOPT_USERAGENT => 'PHP dHttp/Client 1.3'
     ];
     /**
      * @var array
@@ -57,7 +57,7 @@ class Client
     public function setUrl($url)
     {
         if ($url !== null) {
-            $this->_options[CURLOPT_URL] = Url::validateUrl($url);
+            $this->_options[CURLOPT_URL] = $this->prepareUrl($url);
         }
 
         return $this;
@@ -176,7 +176,10 @@ class Client
      */
     public function post($fields = [], array $options = [])
     {
-        return $this->get($options + [CURLOPT_POST => true, CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields]);
+        return $this->get($options + [
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields
+            ]);
     }
 
     /**
@@ -188,7 +191,10 @@ class Client
      */
     public function put($fields = [], array $options = [])
     {
-        return $this->get($options + [CURLOPT_CUSTOMREQUEST => 'PUT', CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields]);
+        return $this->get($options + [
+                CURLOPT_CUSTOMREQUEST => 'PUT',
+                CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields
+            ]);
     }
 
     /**
@@ -322,6 +328,25 @@ class Client
     {
         $this->_options = [];
         return $this;
+    }
+
+    /**
+     * @param $url
+     * @return string
+     */
+    public function prepareUrl($url)
+    {
+        if (is_array($url) && count($url)) {
+            $newUrl = $url[0];
+
+            if (isset($url[1]) && is_array($url[1])) {
+                $newUrl = '?' . http_build_query($url[1]);
+            }
+        } else {
+            $newUrl = $url;
+        }
+
+        return $newUrl;
     }
 
     /**

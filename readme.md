@@ -20,6 +20,9 @@ The recommended way to install library is [through composer](http://getcomposer.
 
 * Cloning the git repository
 
+## Requirements
+dHttp (php curl library) works with PHP 5.4, 5.5, 5.6, and HHVM
+
 ## Usage
 
 ### GET request:

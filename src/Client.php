@@ -170,7 +170,7 @@ class Client
     /**
      * Send post request
      *
-     * @param string|array $fields
+     * @param array $fields
      * @param array $options
      * @return Response
      */
@@ -185,7 +185,7 @@ class Client
     /**
      * Send put request
      *
-     * @param string|array $fields
+     * @param array $fields
      * @param array $options
      * @return Response
      */
@@ -331,7 +331,9 @@ class Client
     }
 
     /**
-     * @param $url
+     * Generate url
+     *
+     * @param string |array $url
      * @return string
      */
     public function prepareUrl($url)

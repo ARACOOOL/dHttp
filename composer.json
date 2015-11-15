@@ -3,7 +3,7 @@
   "description": "Simple and lightweight HTTP client based cURL",
   "keywords": [
     "http client",
-    "curl"
+    "curl", "php", "client", "http", "json", "requests", "rest", "restful", "web service"
   ],
   "type": "library",
   "license": "Apache-2.0",

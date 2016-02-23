@@ -178,7 +178,7 @@ class Client
     {
         return $this->get($options + [
                 CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields
+                CURLOPT_POSTFIELDS => $fields
             ]);
     }
 

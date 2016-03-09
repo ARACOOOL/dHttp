@@ -174,7 +174,7 @@ class Client
      * @param array $options
      * @return Response
      */
-    public function post(array $fields = [], array $options = [])
+    public function post($fields = [], array $options = [])
     {
         return $this->get($options + [
                 CURLOPT_POST => true,

@@ -176,10 +176,11 @@ class Client
      */
     public function post($fields = [], array $options = [])
     {
-        return $this->get($options + [
+        $this->addOptions($options + [
                 CURLOPT_POST => true,
                 CURLOPT_POSTFIELDS => $fields
             ]);
+        return $this->exec();
     }
 
     /**
@@ -191,10 +192,11 @@ class Client
      */
     public function put(array $fields = [], array $options = [])
     {
-        return $this->get($options + [
+        $this->addOptions($options + [
                 CURLOPT_CUSTOMREQUEST => 'PUT',
                 CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields
             ]);
+        return $this->exec();
     }
 
     /**

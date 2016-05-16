@@ -29,7 +29,7 @@ class Client
      *
      * @param string $url
      * @param array $options
-     * @throws \Exception
+     * @throws \RuntimeException
      */
     public function __construct($url = null, array $options = [])
     {
@@ -227,7 +227,7 @@ class Client
      *
      * @param array $handlers
      * @return array
-     * @throws \Exception
+     * @throws \RuntimeException
      */
     public function multi(array $handlers)
     {

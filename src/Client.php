@@ -2,6 +2,8 @@
 
 namespace dHttp;
 
+use RuntimeException;
+
 /**
  * dHttp - http client based curl
  *
@@ -13,11 +15,11 @@ class Client
      * @var array
      */
     private $_default = [
-        CURLOPT_ENCODING => 'utf-8',
+        CURLOPT_ENCODING       => 'utf-8',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_USERAGENT => 'PHP dHttp/Client 1.3'
+        CURLOPT_USERAGENT      => 'PHP dHttp/Client 1.3'
     ];
     /**
      * @var array
@@ -29,12 +31,12 @@ class Client
      *
      * @param string $url
      * @param array $options
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function __construct($url = null, array $options = [])
     {
         if (!extension_loaded('curl')) {
-            throw new \RuntimeException('The PHP cURL extension must be installed to use dHttp');
+            throw new RuntimeException('The PHP cURL extension must be installed to use dHttp');
         }
 
         // Force IPv4, since this class isn't yet compatible with IPv6
@@ -84,7 +86,7 @@ class Client
     public function setCookie($cookie)
     {
         $this->_options[CURLOPT_COOKIEFILE] = $cookie;
-        $this->_options[CURLOPT_COOKIEJAR] = $cookie;
+        $this->_options[CURLOPT_COOKIEJAR]  = $cookie;
         return $this;
     }
 
@@ -101,7 +103,7 @@ class Client
     }
 
     /**
-     * The maximum amount of HTTP redirections to follow
+     * The maximum amount of HTTP redirects to follow
      *
      * @param int $redirects
      * @return Client
@@ -177,7 +179,7 @@ class Client
     public function post($fields = [], array $options = [])
     {
         $this->addOptions($options + [
-                CURLOPT_POST => true,
+                CURLOPT_POST       => true,
                 CURLOPT_POSTFIELDS => $fields
             ]);
         return $this->exec();
@@ -194,7 +196,7 @@ class Client
     {
         $this->addOptions($options + [
                 CURLOPT_CUSTOMREQUEST => 'PUT',
-                CURLOPT_POSTFIELDS => is_array($fields) ? http_build_query($fields) : $fields
+                CURLOPT_POSTFIELDS    => is_array($fields) ? http_build_query($fields) : $fields
             ]);
         return $this->exec();
     }
@@ -223,21 +225,21 @@ class Client
     }
 
     /**
-     * Send multithreaded queries
+     * Send multithread queries
      *
-     * @param array $handlers
+     * @param Client[] $handlers
      * @return array
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function multi(array $handlers)
     {
         //create the multiple cURL handle
-        $mc = curl_multi_init();
+        $mc        = curl_multi_init();
         $resources = [];
 
         foreach ($handlers as $item) {
             if (!$item instanceof Client) {
-                throw new \RuntimeException('Handler should be object instance of dHttp\Client');
+                throw new RuntimeException('Handler should be object instance of dHttp\Client');
             }
             $res = $item->init();
 
@@ -255,8 +257,8 @@ class Client
         foreach ($resources as $item) {
             $resp = new Response([
                 'response' => curl_multi_getcontent($item),
-                'options' => $this->_options,
-                'info' => curl_getinfo($item)
+                'options'  => $this->_options,
+                'info'     => curl_getinfo($item)
             ]);
 
             $errno = curl_errno($item);
@@ -283,8 +285,8 @@ class Client
         // Collect response data
         $response = new Response([
             'response' => curl_exec($ch),
-            'options' => $this->_options,
-            'info' => curl_getinfo($ch)
+            'options'  => $this->_options,
+            'info'     => curl_getinfo($ch)
         ]);
 
         $errno = curl_errno($ch);

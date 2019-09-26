@@ -105,7 +105,7 @@ class Response
     /**
      * Return request errors
      *
-     * @return null|string
+     * @return array
      */
     public function getErrors()
     {

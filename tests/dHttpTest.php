@@ -3,25 +3,31 @@
  * @author: Askar
  * @date: 20.05.13
  */
+
+use PHPUnit\Framework\TestCase;
+
 include_once(__DIR__ . '/../vendor/autoload.php');
 
-class dHttpTest extends PHPUnit_Framework_TestCase
+/**
+ * Class dHttpTest
+ */
+class dHttpTest extends TestCase
 {
     /**
      *
      */
     public function testGetRequest()
     {
-        $http = new dHttp\Client('http://php.net');
+        $http = new dHttp\Client('https://www.php.net/');
         $resp = $http->get([
             CURLOPT_HEADER => true
         ]);
 
-        self::assertInstanceOf('dHttp\Response', $resp);
-        self::assertEquals($resp->getCode(), 200);
-        self::assertInternalType('array', $resp->getHeaders());
-        self::assertInternalType('string', $resp->getHeader('Content-Type'));
-        self::assertEquals('text/html; charset=utf-8', $resp->getHeader('Content-Type'));
+        $this->assertInstanceOf('dHttp\Response', $resp);
+        $this->assertEquals($resp->getCode(), 200);
+        $this->assertInternalType('array', $resp->getHeaders());
+        $this->assertInternalType('string', $resp->getHeader('Content-Type'));
+        $this->assertEquals('text/html; charset=utf-8', $resp->getHeader('Content-Type'));
     }
 
     /**
@@ -29,11 +35,11 @@ class dHttpTest extends PHPUnit_Framework_TestCase
      */
     public function testPostRequest()
     {
-        $http = new dHttp\Client('http://php.net');
+        $http = new dHttp\Client('https://www.php.net/');
         $resp = $http->post([], [CURLOPT_HEADER => true]);
 
-        self::assertInstanceOf('dHttp\Response', $resp);
-        self::assertEquals($resp->getCode(), 200);
+        $this->assertInstanceOf('dHttp\Response', $resp);
+        $this->assertEquals($resp->getCode(), 200);
     }
 
     /**
@@ -43,7 +49,7 @@ class dHttpTest extends PHPUnit_Framework_TestCase
     {
         $multi = new dHttp\Client();
         $response_array = $multi->multi([
-            new dHttp\Client('http://php.net', [
+            new dHttp\Client('https://www.php.net/', [
                 CURLOPT_FOLLOWLOCATION => true
             ]),
             new dHttp\Client('http://www.python.org/', [
@@ -55,8 +61,8 @@ class dHttpTest extends PHPUnit_Framework_TestCase
 
         /* @var $item \dHttp\Response */
         foreach ($response_array as $item) {
-            self::assertInstanceOf('dHttp\Response', $item);
-            self::assertEquals($item->getCode(), 200);
+            $this->assertInstanceOf('dHttp\Response', $item);
+            $this->assertEquals($item->getCode(), 200);
         }
     }
 }

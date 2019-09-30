@@ -13,7 +13,7 @@ The recommended way to install library is [through composer](http://getcomposer.
 ```JSON
 {
     "require": {
-        "aracoool/dhttp" : "1.4.*"
+        "aracoool/dhttp" : "~1.5"
     }
 }
 ```

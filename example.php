@@ -4,6 +4,8 @@
  * Example to use library
  */
 
+use dHttp\Client;
+
 include_once('src/Client.php');
 include_once('src/Response.php');
 
@@ -71,4 +73,4 @@ foreach ($response_array as $item) {
 /**
  * Get cURL version
  */
-\dHttp\Client::v();
+Client::v();

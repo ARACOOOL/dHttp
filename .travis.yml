@@ -10,10 +10,10 @@ before_install:
   - sudo pip install codecov
 
 install:
-  - composer install --dev --no-interaction
+  - composer install --no-interaction
 
 script:
-  - phpunit --colors tests/dHttpTest --coverage-clover=coverage.xml
+  - phpunit --colors --coverage-clover=coverage.xml
 
 after_success:
   - codecov

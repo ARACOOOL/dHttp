@@ -13,7 +13,7 @@ install:
   - composer install --no-interaction
 
 script:
-  - phpunit --colors --coverage-clover=coverage.xml
+  - phpunit --colors --coverage-clover=coverage.xml tests
 
 after_success:
   - codecov

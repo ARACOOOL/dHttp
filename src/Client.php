@@ -86,10 +86,10 @@ class Client
     /**
      * Set URL
      *
-     * @param string $url
+     * @param string|null $url
      * @return Client
      */
-    public function setUrl(string $url): Client
+    public function setUrl(?string $url): Client
     {
         if ($url !== null) {
             $this->_options[CURLOPT_URL] = $this->prepareUrl($url);

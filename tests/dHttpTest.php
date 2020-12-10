@@ -1,9 +1,6 @@
 <?php
-/**
- * @author: Askar
- * @date: 20.05.13
- */
 
+use dHttp\Response;
 use PHPUnit\Framework\TestCase;
 
 include_once(__DIR__ . '/../vendor/autoload.php');
@@ -59,9 +56,9 @@ class dHttpTest extends TestCase
             ])
         ]);
 
-        /* @var $item \dHttp\Response */
+        /* @var $item Response */
         foreach ($response_array as $item) {
-            $this->assertInstanceOf('dHttp\Response', $item);
+            $this->assertInstanceOf(Response::class, $item);
             $this->assertEquals(200, $item->getCode());
         }
     }
